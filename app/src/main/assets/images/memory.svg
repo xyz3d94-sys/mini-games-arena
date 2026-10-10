@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mem-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <filter id="card-shad" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#mem-bg)"/>
+
+  <!-- Top Banner "MEMORY" -->
+  <rect x="50" y="24" width="400" height="54" rx="27" fill="#ffffff" filter="url(#card-shad)"/>
+  <text x="250" y="60" font-family="'Nunito', 'Segoe UI', sans-serif" font-size="28" font-weight="900" fill="#0284c7" letter-spacing="4" text-anchor="middle">MEMORY</text>
+
+  <!-- 4 Cards Grid (like 5.jpg) -->
+  <!-- Card 1: Cute Panda (Top-Left) -->
+  <g transform="translate(45, 105)" filter="url(#card-shad)">
+    <rect width="185" height="170" rx="20" fill="#ffffff" stroke="#38bdf8" stroke-width="4"/>
+    <!-- Panda ears -->
+    <circle cx="65" cy="55" r="22" fill="#1e293b"/>
+    <circle cx="120" cy="55" r="22" fill="#1e293b"/>
+    <!-- Head -->
+    <circle cx="92" cy="95" r="48" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <!-- Eye patches -->
+    <ellipse cx="76" cy="92" rx="14" ry="17" fill="#1e293b" transform="rotate(-15 76 92)"/>
+    <ellipse cx="108" cy="92" rx="14" ry="17" fill="#1e293b" transform="rotate(15 108 92)"/>
+    <circle cx="78" cy="90" r="5" fill="#ffffff"/>
+    <circle cx="106" cy="90" r="5" fill="#ffffff"/>
+    <!-- Nose & smile -->
+    <ellipse cx="92" cy="108" rx="8" ry="6" fill="#0f172a"/>
+    <path d="M86,116 Q92,122 98,116" stroke="#0f172a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Pink cheeks -->
+    <ellipse cx="64" cy="110" rx="7" ry="4" fill="#f472b6" opacity="0.6"/>
+    <ellipse cx="120" cy="110" rx="7" ry="4" fill="#f472b6" opacity="0.6"/>
+  </g>
+
+  <!-- Card 2: Cute Tiger (Top-Right) -->
+  <g transform="translate(270, 105)" filter="url(#card-shad)">
+    <rect width="185" height="170" rx="20" fill="#ffffff" stroke="#38bdf8" stroke-width="4"/>
+    <!-- Tiger ears -->
+    <circle cx="65" cy="55" r="22" fill="#f97316"/>
+    <circle cx="65" cy="55" r="12" fill="#fef08a"/>
+    <circle cx="120" cy="55" r="22" fill="#f97316"/>
+    <circle cx="120" cy="55" r="12" fill="#fef08a"/>
+    <!-- Head -->
+    <circle cx="92" cy="95" r="48" fill="#fb923c"/>
+    <!-- Stripes -->
+    <polygon points="92,52 87,66 97,66" fill="#7c2d12"/>
+    <polygon points="52,90 66,86 66,94" fill="#7c2d12"/>
+    <polygon points="132,90 118,86 118,94" fill="#7c2d12"/>
+    <!-- Eyes -->
+    <circle cx="74" cy="92" r="6" fill="#0f172a"/>
+    <circle cx="110" cy="92" r="6" fill="#0f172a"/>
+    <circle cx="72" cy="90" r="2" fill="#ffffff"/>
+    <circle cx="108" cy="90" r="2" fill="#ffffff"/>
+    <!-- Muzzle -->
+    <ellipse cx="92" cy="110" rx="16" ry="12" fill="#fff7ed"/>
+    <polygon points="92,108 87,103 97,103" fill="#7c2d12"/>
+    <path d="M88,114 Q92,118 96,114" stroke="#7c2d12" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- Card 3: Cute Frog (Bottom-Left) -->
+  <g transform="translate(45, 295)" filter="url(#card-shad)">
+    <rect width="185" height="170" rx="20" fill="#ffffff" stroke="#38bdf8" stroke-width="4"/>
+    <!-- Frog eye mounds -->
+    <circle cx="65" cy="65" r="22" fill="#4ade80"/>
+    <circle cx="120" cy="65" r="22" fill="#4ade80"/>
+    <!-- Eyes -->
+    <circle cx="65" cy="65" r="14" fill="#ffffff"/>
+    <circle cx="120" cy="65" r="14" fill="#ffffff"/>
+    <circle cx="67" cy="65" r="7" fill="#0f172a"/>
+    <circle cx="118" cy="65" r="7" fill="#0f172a"/>
+    <!-- Head -->
+    <ellipse cx="92" cy="105" rx="52" ry="42" fill="#4ade80"/>
+    <!-- Cheeks -->
+    <circle cx="58" cy="110" r="7" fill="#f43f5e" opacity="0.4"/>
+    <circle cx="126" cy="110" r="7" fill="#f43f5e" opacity="0.4"/>
+    <!-- Big happy smile -->
+    <path d="M72,108 Q92,128 112,108" stroke="#166534" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Card 4: Cute Polar Bear / Leopard (Bottom-Right) -->
+  <g transform="translate(270, 295)" filter="url(#card-shad)">
+    <rect width="185" height="170" rx="20" fill="#ffffff" stroke="#38bdf8" stroke-width="4"/>
+    <!-- Ears -->
+    <circle cx="65" cy="55" r="20" fill="#fde047"/>
+    <circle cx="120" cy="55" r="20" fill="#fde047"/>
+    <!-- Head -->
+    <circle cx="92" cy="95" r="48" fill="#fef08a"/>
+    <!-- Leopard spots -->
+    <circle cx="60" cy="80" r="5" fill="#ca8a04"/>
+    <circle cx="125" cy="80" r="5" fill="#ca8a04"/>
+    <circle cx="92" cy="58" r="4" fill="#ca8a04"/>
+    <!-- Eyes -->
+    <circle cx="74" cy="92" r="6" fill="#0f172a"/>
+    <circle cx="110" cy="92" r="6" fill="#0f172a"/>
+    <circle cx="72" cy="90" r="2" fill="#ffffff"/>
+    <circle cx="108" cy="90" r="2" fill="#ffffff"/>
+    <!-- Nose -->
+    <ellipse cx="92" cy="106" rx="8" ry="6" fill="#713f12"/>
+    <path d="M86,113 Q92,118 98,113" stroke="#713f12" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <circle cx="64" cy="108" r="6" fill="#f472b6" opacity="0.5"/>
+    <circle cx="120" cy="108" r="6" fill="#f472b6" opacity="0.5"/>
+  </g>
+</svg>

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="maze-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+
+    <!-- Path Glow Gradient -->
+    <linearGradient id="gold-path" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+
+    <!-- Tile 3D Gradient -->
+    <linearGradient id="tile-grad-normal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <linearGradient id="tile-grad-path" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+
+    <linearGradient id="badge-100" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- Soft Drop Shadow -->
+    <filter id="m-shad" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+
+    <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Base Card -->
+  <rect width="500" height="500" rx="44" fill="url(#maze-bg-grad)"/>
+
+  <!-- Radial Atmosphere -->
+  <circle cx="250" cy="220" r="180" fill="#6366f1" opacity="0.15"/>
+  <circle cx="360" cy="360" r="120" fill="#eab308" opacity="0.2"/>
+
+  <!-- Isometric / 2.5D Stylized 5x5 Grid Mini Preview -->
+  <g transform="translate(60, 50)" filter="url(#m-shad)">
+    <!-- 5x5 Matrix Cells (Stylized preview with glowing winding path) -->
+    <!-- Row 0 -->
+    <!-- (0,0) Start -->
+    <rect x="0" y="0" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="34" y="44" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+10</text>
+    <circle cx="16" cy="16" r="6" fill="#facc15"/>
+
+    <rect x="78" y="0" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="112" y="44" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+15</text>
+
+    <rect x="156" y="0" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="190" y="44" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+5</text>
+
+    <rect x="234" y="0" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="268" y="44" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+20</text>
+
+    <rect x="312" y="0" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="346" y="44" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+8</text>
+
+    <!-- Row 1 -->
+    <rect x="0" y="78" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="34" y="122" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+7</text>
+
+    <!-- (1,1) Path -->
+    <rect x="78" y="78" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="112" y="122" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+20</text>
+
+    <!-- (1,2) Path -->
+    <rect x="156" y="78" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="190" y="122" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+15</text>
+
+    <rect x="234" y="78" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="268" y="122" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+12</text>
+
+    <rect x="312" y="78" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="346" y="122" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+18</text>
+
+    <!-- Row 2 -->
+    <rect x="0" y="156" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="34" y="200" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+11</text>
+
+    <rect x="78" y="156" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="112" y="200" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+4</text>
+
+    <!-- (2,2) Path -->
+    <rect x="156" y="156" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="190" y="200" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+10</text>
+
+    <!-- (2,3) Path -->
+    <rect x="234" y="156" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="268" y="200" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+15</text>
+
+    <rect x="312" y="156" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="346" y="200" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+9</text>
+
+    <!-- Row 3 -->
+    <rect x="0" y="234" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="34" y="278" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+3</text>
+    <rect x="78" y="234" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="112" y="278" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+14</text>
+    <rect x="156" y="234" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="190" y="278" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+6</text>
+
+    <!-- (3,3) Path -->
+    <rect x="234" y="234" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="268" y="278" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+10</text>
+
+    <!-- (3,4) Path -->
+    <rect x="312" y="234" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#86efac" stroke-width="3"/>
+    <text x="346" y="278" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">+10</text>
+
+    <!-- Row 4 -->
+    <rect x="0" y="312" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="34" y="356" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+16</text>
+    <rect x="78" y="312" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="112" y="356" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+2</text>
+    <rect x="156" y="312" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="190" y="356" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+8</text>
+    <rect x="234" y="312" width="68" height="68" rx="14" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="268" y="356" font-family="'Arial Black', sans-serif" font-size="22" font-weight="900" fill="#94a3b8" text-anchor="middle">+7</text>
+
+    <!-- (4,4) Goal! -->
+    <rect x="312" y="312" width="68" height="68" rx="14" fill="url(#tile-grad-path)" stroke="#facc15" stroke-width="4"/>
+    <text x="346" y="356" font-family="'Arial Black', sans-serif" font-size="24" font-weight="900" fill="#facc15" text-anchor="middle">+5</text>
+  </g>
+
+  <!-- Big Glowing Target Badge "🎯 = 100" at bottom right -->
+  <g transform="translate(250, 360)" filter="url(#m-shad)">
+    <!-- Golden Badge Banner -->
+    <rect x="-10" y="10" width="220" height="75" rx="20" fill="url(#badge-100)" stroke="#fff" stroke-width="3"/>
+    <text x="100" y="60" font-family="'Arial Black', sans-serif" font-size="40" font-weight="900" fill="#1e1b4b" text-anchor="middle">🎯 100</text>
+  </g>
+
+  <!-- Compass / Direction Arrows in top-left (Right & Down) -->
+  <g transform="translate(30, 20)" filter="url(#m-shad)">
+    <circle cx="24" cy="24" r="20" fill="#f59e0b"/>
+    <path d="M18 24 L30 24 M25 18 L31 24 L25 30" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(30, 70)" filter="url(#m-shad)">
+    <circle cx="24" cy="24" r="20" fill="#3b82f6"/>
+    <path d="M24 18 L24 30 M18 25 L24 31 L30 25" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

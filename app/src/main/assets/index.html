@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Mini Games Arena</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      background-color: #0f172a;
+      color: #f8fafc;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/games.css" />
+</head>
+<body>
+  <canvas id="confetti-cvs"></canvas>
+
+  <div id="app-container">
+    <!-- MOBILE CLEAN TOP BAR -->
+    <header id="main-header" class="mobile-header">
+      <div class="brand-capsule" onclick="App.goView('menu')" title="Mini Games Arena">
+        <img src="images/mini_games_arena_cartoon.jpg" alt="Logo" style="width:24px; height:24px; border-radius:6px; object-fit:cover; margin-right:4px; box-shadow:0 2px 6px rgba(0,0,0,0.4);" />
+        <span class="brand-title-text" id="main-brand-title">Mini Games</span>
+      </div>
+
+      <div class="header-controls">
+        <button class="top-btn-pill" onclick="App.openLangModal()" id="lang-btn" title="Tilni tanlash">🌐 UZ</button>
+        <button class="top-icon-circle" onclick="AudioEngine.toggleSound()" id="sound-btn" title="Ovoz">🔊</button>
+      </div>
+    </header>
+
+    <!-- AUTOMATIC PLAYER ID DISPLAY -->
+    <div class="player-id-bar" id="player-id-bar">
+      <div class="player-id-label" onclick="Multiplayer.copyMyId()" style="cursor:pointer;" title="ID ni nusxalash">
+        <span class="online-dot" id="my-online-dot"></span>
+        <span id="lbl-your-id">ID:</span>
+        <span class="player-id-val" id="my-player-id-val">#----</span>
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn-copy-id" onclick="Multiplayer.copyMyId()" id="btn-copy-id" title="ID ni nusxalash">📋 Nusxalash</button>
+        <button class="btn-copy-id" onclick="Multiplayer.editMyId()" id="btn-edit-id" title="ID ni o'zgartirish" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.2);">✏️</button>
+      </div>
+    </div>
+
+    <!-- CONNECTED PEER BAR (Active 1v1 Pairing) -->
+    <div class="connected-peer-bar" id="connected-peer-bar" style="display:none;">
+      <div class="connected-peer-info">
+        <span class="online-dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span>
+        <span id="lbl-connected-with" style="font-size:13px; font-weight:800; color:#e0e7ff;">Siz #---- bilan bog'langansiz</span>
+      </div>
+      <button class="btn-disconnect-peer" onclick="Multiplayer.disconnectCurrentPeer()" id="btn-disconnect-peer" title="Bog'lanishni uzish">❌ Uzish</button>
+    </div>
+
+    <!-- 0. ASOSIY MENYU: POKI GAME GRID (1.png) -->
+    <div id="view-menu" class="view active">
+      <div class="poki-grid" id="poki-game-grid">
+        <!-- 1. FEATURED 2x2 CARD: MATEMATIK LABIRINT -->
+        <div class="poki-card poki-featured" onclick="App.goView('mathmaze')" data-game="mathmaze matematik labirint 100 ball pathfinding panjara matrisa cartoon">
+          <img src="images/mathmaze_cartoon.jpg" alt="Matematik Labirint" decoding="async" loading="eager" style="object-fit:cover; width:100%; height:100%; border-radius:22px;" />
+          <div class="poki-badge-top" id="top-game-badge">🎯 100</div>
+          <div class="poki-card-info">
+            <div class="poki-featured-title" id="m-arena-banner-title">Matematik Labirint</div>
+            <div class="poki-play-pill" id="poki-play-pill">O'ynash</div>
+          </div>
+        </div>
+
+        <!-- DENGIZ JANGI (BATTLESHIP 10x10) -->
+        <div class="poki-card" onclick="App.goView('battleship')" data-game="battleship dengiz jangi kema floti sea battle 10x10">
+          <img src="images/battleship.svg" alt="Dengiz Jangi" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-battle-title">Dengiz Jangi (10x10)</div>
+        </div>
+
+        <!-- DENGIZ JANGI (BATTLESHIP 5x5) -->
+        <div class="poki-card" onclick="App.goView('battleship5')" data-game="battleship5 dengiz jangi 5x5 kema floti sea battle tezkor radar besh">
+          <img src="images/battleship5.svg" alt="Dengiz Jangi (5x5)" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-battle5-title">Dengiz Jangi (5x5)</div>
+        </div>
+
+        <!-- 2. MEVALI TENGLAMALAR (ALGEBRAIC FRUIT PUZZLE) -->
+        <div class="poki-card" onclick="App.goView('fruitmath')" data-game="fruitmath mevali tenglamalar algebra tarvuz olma apelsin arifmetika">
+          <img src="images/fruitmath.svg" alt="Mevali Tenglamalar" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-fruitmath-title">Mevali Tenglamalar</div>
+        </div>
+
+        <!-- 3. TIC TAC TOE (3x3) -->
+        <div class="poki-card" onclick="App.goView('ttt')" data-game="ttt x va o tic tac toe 3x3 uchga uch">
+          <img src="images/ttt.svg" alt="X va O" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-ttt-title">X va O (3x3)</div>
+        </div>
+
+        <!-- TIC TAC TOE (5x5) -->
+        <div class="poki-card" onclick="App.goView('ttt5')" data-game="ttt5 x va o 5x5 tic tac toe connect 4 besh besh">
+          <img src="images/ttt5.svg" alt="X va O (5x5)" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-ttt5-title">X va O (5x5)</div>
+        </div>
+
+        <!-- SHAXMAT (CHESS) -->
+        <div class="poki-card" onclick="App.goView('chess')" data-game="chess shaxmat bot duel doska usta doskasi">
+          <img src="images/chess_icon.jpg" alt="Shaxmat" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-chess-title">Shaxmat</div>
+        </div>
+
+        <!-- 4. GUGURT TENGLAMALARI -->
+        <div class="poki-card" onclick="App.goView('matches')" data-game="matches gugurt tenglamalari choplar">
+          <img src="images/matches.svg" alt="Gugurt Tenglamalari" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-matches-title">Gugurtlar</div>
+        </div>
+
+        <!-- 5. SEHRLI LABIRINT (MAZE RUNNER) -->
+        <div class="poki-card" onclick="App.goView('maze')" data-game="maze labirint sehrli runner">
+          <img src="images/maze.svg" alt="Labirint" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-maze-title">Labirint</div>
+        </div>
+
+        <!-- 6. MEMORY MATCH (from 5.jpg) -->
+        <div class="poki-card" onclick="App.goView('memory')" data-game="memory xotira mashqi animals hayvonlar">
+          <img src="images/memory.svg" alt="Xotira Mashqi" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-memory-title">Xotira Mashqi</div>
+        </div>
+
+        <!-- 7. TOSH - QAYCHI - QOG'OZ (from 6.png) -->
+        <div class="poki-card" onclick="App.goView('rps')" data-game="rps tosh qaychi qogoz duel">
+          <img src="images/rps.svg" alt="Tosh Qaychi Qog'oz" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-rps-title">Tosh - Qaychi</div>
+        </div>
+
+        <!-- 8. TEZKOR MATEMATIKA -->
+        <div class="poki-card" onclick="App.goView('math')" data-game="math tezkor matematika algebra hisob">
+          <img src="images/math.svg" alt="Tezkor Matematika" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-math-title">Matematika</div>
+        </div>
+
+        <!-- 9. XAZINA SONNI TOP -->
+        <div class="poki-card" onclick="App.goView('guess')" data-game="guess xazina son raqam issiq sovuq">
+          <img src="images/guess.svg" alt="Xazina Son" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-guess-title">Xazina Son</div>
+        </div>
+
+        <!-- 10. MINA QIDIRUVCHI (MINESWEEPER 9x9 - Cartoon Style Icon) -->
+        <div class="poki-card" onclick="App.goView('mines')" data-game="mines minesweeper mina qidiruvchi saper 9x9">
+          <img src="images/minesweeper_cartoon.jpg" alt="Mina Qidiruvchi" decoding="async" loading="lazy" style="object-fit:cover; border-radius:18px;" />
+          <div class="poki-card-title" id="m-mines-title">Mina Qidiruvchi</div>
+        </div>
+
+        <!-- 11. RANGLI SO'ZLAR (STROOP TEST) -->
+        <div class="poki-card" onclick="App.goView('stroop')" data-game="stroop rangli sozlar color brain test rang">
+          <img src="images/stroop.svg" alt="Rangli So'zlar" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-stroop-title">Rangli So'zlar</div>
+        </div>
+
+        <!-- 12. SO'Z TOPISH (FIELD OF WONDERS) -->
+        <div class="poki-card" onclick="App.goView('pole')" data-game="pole soz topish mojizalar maydoni word">
+          <img src="images/word.svg" alt="So'z Topish" decoding="async" loading="lazy" />
+          <div class="poki-card-title" id="m-pole-title">So'z Topish</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. VIEW BATTLESHIP (10X10) -->
+    <div id="view-battleship" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="bs-header-title">Dengiz Jangi (10x10)</span>
+        <div>
+          <button class="btn-icon-pill" onclick="Battleship.enterPlacementPhase()">🔄</button>
+          <button class="btn-icon-pill" onclick="Battleship.enterPlacementPhase()">⚙️</button>
+        </div>
+      </div>
+
+      <!-- Mode Selector -->
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="bs-tab-bot" onclick="Battleship.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Botga qarshi</span>
+        </button>
+        <button class="mode-tab-btn" id="bs-tab-player" onclick="App.open2pModal('battleship')">
+          <span class="lbl-vs-player">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="bs-tab-online" onclick="Multiplayer.openChallengeModal('battleship')">
+          <span>🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <!-- PHASE 1: MANUAL / AUTO SHIP PLACEMENT -->
+      <div id="bs-placement-card">
+        <div class="bs-placement-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:13px; font-weight:800; color:#38bdf8;" id="bs-placement-title">Kemalarni Joylashtirish</span>
+            <button class="btn-action btn-green" style="width:auto; padding:6px 14px; font-size:12px; border-radius:8px;" id="bs-btn-rotate" onclick="Battleship.toggleOrientation()">Gorizontal</button>
+          </div>
+
+          <!-- Ships tray -->
+          <div class="bs-ships-tray" id="bs-ships-tray"></div>
+
+          <!-- Placement 10x10 Grid -->
+          <div class="bs-grid" id="bs-placement-grid"></div>
+
+          <!-- Placement action buttons -->
+          <div class="bs-placement-actions">
+            <button class="btn-bs-sub btn-dark-orange" onclick="Battleship.autoPlaceMyFleet()" id="bs-btn-auto">Avto Joylash</button>
+            <button class="btn-bs-sub btn-dark-orange" onclick="Battleship.clearMyFleet()" id="bs-btn-clear">Tozalash</button>
+          </div>
+          <button class="btn-action btn-green" style="margin-top:10px;" id="bs-btn-start-battle" onclick="Battleship.startBattle()">Jangni Boshlash</button>
+        </div>
+      </div>
+
+      <!-- PHASE 2: BATTLE RADAR AND WAR -->
+      <div id="bs-battle-card" style="display:none;">
+        <!-- Scoreboard -->
+        <div class="scoreboard">
+          <div class="score-col">
+            <div class="score-lbl" id="bs-score-lbl-you">Siz</div>
+            <div class="score-val" id="bs-my-score" style="color:#38bdf8;">0</div>
+          </div>
+          <div class="score-mid">
+            <div style="font-size:10px; color:#94a3b8;" id="bs-fleet-status-lbl">FLOT HOLATI</div>
+            <div style="font-size:13px; font-weight:800; color:#fff;" id="bs-my-remaining">🚢 6/6</div>
+          </div>
+          <div class="score-col">
+            <div class="score-lbl" id="bs-opp-label">Dushman</div>
+            <div class="score-val" id="bs-opp-score" style="color:#f43f5e;">0</div>
+          </div>
+        </div>
+
+        <!-- Radar Card (Enemy Grid) -->
+        <div class="bs-radar-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:12px; font-weight:800; color:#38bdf8;" id="bs-target-radar-lbl">🎯 NISHON RADARI (10x10)</span>
+            <span style="font-size:12px; font-weight:800; color:#f43f5e;" id="bs-opp-remaining">🎯 6/6</span>
+          </div>
+          <div class="bs-grid" id="bs-opp-grid"></div>
+        </div>
+
+        <!-- Status Indicator -->
+        <div class="ttt-status-pill">
+          <span id="bs-status-msg" style="color:#38bdf8;">Sizning navbatingiz: Dushman katagiga bosing!</span>
+        </div>
+
+        <!-- My Fleet Placement Mini Box -->
+        <div class="bs-fleet-box">
+          <div class="bs-mini-grid" id="bs-my-grid"></div>
+          <div style="flex:1;">
+            <div style="font-size:13px; font-weight:800; color:#fff; margin-bottom:4px;" id="bs-your-fleet-lbl">Sizning Flotingiz</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;" id="bs-fleet-ships-desc">1x(4), 1x(3), 2x(2), 2x(1) kemalar</div>
+            <button class="btn-action btn-dark-orange" style="padding:6px 10px; font-size:11px;" onclick="Battleship.backToPlacement()" id="bs-btn-reposition">Flotni O'zgartirish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. VIEW MAZE RUNNER (SEHRLI LABIRINT) -->
+    <div id="view-maze" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="maze-header-title">Labirint</span>
+        <button class="btn-icon-pill" onclick="MazeGame.startNewMaze()">🔄</button>
+      </div>
+
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="maze-tab-bot" onclick="MazeGame.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Bot bilan poyga</span>
+        </button>
+        <button class="mode-tab-btn" id="maze-tab-player" onclick="App.open2pModal('maze')">
+          <span class="lbl-vs-player">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="maze-tab-online" onclick="Multiplayer.openChallengeModal('maze')">
+          <span>🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="maze-moves-lbl">🟡 Siz (Qadam)</div>
+          <div class="score-val" id="maze-moves-val" style="color:#fde047;">0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="maze-wins-lbl">🏆 Siz</div>
+          <div class="score-val" id="maze-my-score" style="color:#10b981;">0</div>
+        </div>
+        <div class="score-col" id="maze-opp-score-col">
+          <div class="score-lbl" id="maze-opp-lbl">👤 Raqib</div>
+          <div class="score-val" id="maze-opp-score" style="color:#f43f5e;">0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="maze-stars-lbl">✨ Yulduz</div>
+          <div class="score-val" id="maze-stars-val" style="color:#38bdf8; font-size:14px;">0/3</div>
+        </div>
+      </div>
+
+      <!-- Maze Canvas -->
+      <div class="maze-board-container" id="maze-board"></div>
+
+      <!-- MODERN ERGONOMIC D-PAD CONTROLS -->
+      <div class="maze-controller-wrap">
+        <div class="modern-dpad">
+          <button class="dpad-btn dpad-up" onclick="MazeGame.movePlayer(0, -1)" aria-label="Up">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+          </button>
+          <button class="dpad-btn dpad-left" onclick="MazeGame.movePlayer(-1, 0)" aria-label="Left">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="dpad-center"></div>
+          <button class="dpad-btn dpad-right" onclick="MazeGame.movePlayer(1, 0)" aria-label="Right">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <button class="dpad-btn dpad-down" onclick="MazeGame.movePlayer(0, 1)" aria-label="Down">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. VIEW TIC TAC TOE (3X3) -->
+    <div id="view-ttt" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="ttt-header-title">X va O (Tic-Tac-Toe)</span>
+        <button class="btn-icon-pill" onclick="TTT.newRound()">🔄</button>
+      </div>
+
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="ttt-tab-bot" onclick="TTT.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Bot</span>
+        </button>
+        <button class="mode-tab-btn" id="ttt-tab-player" onclick="App.open2pModal('ttt')">
+          <span class="lbl-vs-player">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="ttt-tab-online" onclick="Multiplayer.openChallengeModal('ttt')">
+          <span>🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="ttt-lbl-x">X (Siz)</div>
+          <div class="score-val" id="ttt-score-x" style="color:#f43f5e;">0</div>
+        </div>
+        <div class="score-mid">
+          <div style="font-size:10px; color:#94a3b8;" id="ttt-draw-lbl">DURANG</div>
+          <div id="ttt-score-draw" style="font-size:18px; color:#fff;">0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="ttt-lbl-o">O (Bot)</div>
+          <div class="score-val" id="ttt-score-o" style="color:#38bdf8;">0</div>
+        </div>
+      </div>
+
+      <div class="ttt-status-pill">
+        <div class="ttt-turn-dot dot-x" id="ttt-turn-dot">X</div>
+        <span id="ttt-status-msg">Sizning navbatingiz (X)</span>
+      </div>
+
+      <!-- STRICT 3X3 GRID -->
+      <div class="ttt-board-container" id="ttt-board">
+        <div class="ttt-cell" onclick="TTT.clickCell(0)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(1)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(2)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(3)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(4)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(5)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(6)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(7)"></div>
+        <div class="ttt-cell" onclick="TTT.clickCell(8)"></div>
+      </div>
+
+      <button class="btn-action btn-green" onclick="TTT.newRound()" id="ttt-btn-new-round">Yangi Raund</button>
+    </div>
+
+    <!-- 4. VIEW SPEED MATH & ALGEBRA -->
+    <div id="view-math" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="math-header-title">Tezkor Matematika</span>
+        <button class="btn-icon-pill" onclick="MathGame.restart()">🔄</button>
+      </div>
+
+      <!-- Level Switcher -->
+      <div style="display:flex; align-items:center; gap:6px; margin-bottom:12px;">
+        <button class="btn-icon-pill" onclick="document.getElementById('math-level-tabs').scrollBy({left: -120, behavior: 'smooth'})" style="padding:6px 8px; font-size:13px; flex-shrink:0;" title="Oldingi bosqichlar">◀</button>
+        <div class="level-tabs" id="math-level-tabs" style="flex:1; overflow-x:auto; overflow-y:hidden; flex-wrap:nowrap; padding:6px 4px; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-x; margin:0;">
+          <button class="lvl-btn active" style="flex: 0 0 auto;" id="math-tab-1" onclick="MathGame.setLevel(1)">1-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-2" onclick="MathGame.setLevel(2)">2-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-3" onclick="MathGame.setLevel(3)">3-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-4" onclick="MathGame.setLevel(4)">4-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-5" onclick="MathGame.setLevel(5)">5-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-6" onclick="MathGame.setLevel(6)">6-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-7" onclick="MathGame.setLevel(7)">7-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-8" onclick="MathGame.setLevel(8)">8-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-9" onclick="MathGame.setLevel(9)">9-bosqich</button>
+          <button class="lvl-btn" style="flex: 0 0 auto;" id="math-tab-10" onclick="MathGame.setLevel(10)">10-bosqich</button>
+        </div>
+        <button class="btn-icon-pill" onclick="document.getElementById('math-level-tabs').scrollBy({left: 120, behavior: 'smooth'})" style="padding:6px 8px; font-size:13px; flex-shrink:0;" title="Keyingi bosqichlar">▶</button>
+      </div>
+
+      <div class="math-timer-bar">
+        <div class="math-timer-fill" id="math-timer-fill"></div>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="math-lbl-score">BALL</div>
+          <div class="score-val" id="math-score-val" style="color:#8b5cf6;">0</div>
+        </div>
+        <div class="score-mid">
+          <div style="font-size:10px; color:#94a3b8;" id="math-lbl-streak">SERIYA</div>
+          <div id="math-streak-val" style="font-size:16px; font-weight:800; color:#f59e0b;">🔥 0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="math-lbl-record">REKORD</div>
+          <div class="score-val" id="math-best-val" style="color:#10b981;">0</div>
+        </div>
+      </div>
+
+      <!-- Problem Card -->
+      <div class="math-card">
+        <span style="display:inline-block; font-size:11px; font-weight:800; color:#c4b5fd; text-transform:uppercase; margin-bottom:6px;" id="math-current-level-tag">1-Daraja</span>
+        <div class="math-problem" id="math-expression">24 + 18 = ?</div>
+        <div style="font-size:13px; color:#94a3b8;" id="math-time-val">30s</div>
+      </div>
+
+      <!-- 4 Choice Options -->
+      <div class="math-options-grid">
+        <button class="math-choice-btn" id="math-opt-0" onclick="MathGame.pick(0)">--</button>
+        <button class="math-choice-btn" id="math-opt-1" onclick="MathGame.pick(1)">--</button>
+        <button class="math-choice-btn" id="math-opt-2" onclick="MathGame.pick(2)">--</button>
+        <button class="math-choice-btn" id="math-opt-3" onclick="MathGame.pick(3)">--</button>
+      </div>
+
+      <button class="btn-action btn-green" onclick="MathGame.showSolutionModal()" id="math-btn-solution">Yechilish Yo'lini Ko'rish</button>
+    </div>
+
+    <!-- 5. VIEW TREASURE NUMBER GUESSER -->
+    <div id="view-guess" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="guess-header-title">Xazina Sonni Top</span>
+        <button class="btn-icon-pill" onclick="GuessNew.start()">🔄</button>
+      </div>
+
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="guess-tab-bot" onclick="GuessNew.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Botga qarshi</span>
+        </button>
+        <button class="mode-tab-btn" id="guess-tab-player" onclick="GuessNew.setMode('player')">
+          <span class="lbl-vs-player">👥 O'yinchiga qarshi</span>
+        </button>
+      </div>
+
+      <div class="level-tabs">
+        <button class="lvl-btn active" id="guess-tab-25" onclick="GuessNew.setGrid(25)">1 dan 25 gacha</button>
+        <button class="lvl-btn" id="guess-tab-50" onclick="GuessNew.setGrid(50)">1 dan 50 gacha</button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="guess-lbl-tries">URINISHLAR</div>
+          <div class="score-val" id="guess-tries-count" style="color:#f59e0b;">0</div>
+        </div>
+        <div class="score-mid">
+          <div style="font-size:10px; color:#94a3b8;" id="guess-lbl-range">QIDIRUV ORALIG'I</div>
+          <div style="font-size:16px; font-weight:800; color:#fff;" id="guess-range-text">1 - 25</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="guess-lbl-status">MAQOM</div>
+          <div class="score-val" id="guess-meter-icon">🎯</div>
+        </div>
+      </div>
+
+      <div class="ttt-status-pill" id="guess-meter">
+        <span id="guess-meter-text">Bitta raqamni bosing!</span>
+      </div>
+
+      <div class="guess-matrix" id="guess-matrix-box"></div>
+
+      <button class="btn-action btn-green" onclick="GuessNew.start()" id="guess-btn-restart">Qayta Boshlash</button>
+    </div>
+
+    <!-- 6. VIEW ROCK PAPER SCISSORS -->
+    <div id="view-rps" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="rps-header-title">Tosh - Qaychi - Qog'oz</span>
+        <button class="btn-icon-pill" onclick="RPS.resetScore()">🔄</button>
+      </div>
+
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="rps-tab-bot" onclick="RPS.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Botga qarshi</span>
+        </button>
+        <button class="mode-tab-btn" id="rps-tab-player" onclick="App.open2pModal('rps')">
+          <span class="lbl-vs-player">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="rps-tab-online" onclick="Multiplayer.openChallengeModal('rps')">
+          <span>🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="rps-name-1">Siz</div>
+          <div class="score-val" id="rps-score-1" style="color:#ec4899;">0</div>
+        </div>
+        <div class="score-mid">
+          <div style="font-size:11px; color:#94a3b8;" id="rps-lbl-round">RAUND</div>
+          <div style="font-size:16px; font-weight:800; color:#fff;">VS</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="rps-name-2">AI Bot</div>
+          <div class="score-val" id="rps-score-2" style="color:#38bdf8;">0</div>
+        </div>
+      </div>
+
+      <div class="rps-battlefield">
+        <div style="text-align:center;">
+          <div class="rps-hand-circle" id="rps-hand-1">❔</div>
+          <div style="font-size:11px; font-weight:700; color:#94a3b8; margin-top:6px;" id="rps-lbl-you-1">Siz</div>
+        </div>
+        <div style="font-size:24px; font-weight:900; color:#6366f1;">⚡</div>
+        <div style="text-align:center;">
+          <div class="rps-hand-circle" id="rps-hand-2">❔</div>
+          <div style="font-size:11px; font-weight:700; color:#94a3b8; margin-top:6px;" id="rps-lbl-2">AI Bot</div>
+        </div>
+      </div>
+
+      <div class="ttt-status-pill">
+        <span id="rps-status-alert">Tanlovingizni bajaring!</span>
+      </div>
+
+      <div class="rps-controls">
+        <button class="rps-pick-btn" onclick="RPS.play('rock')">
+          <span>✊</span>
+          <div id="rps-lbl-rock">Tosh</div>
+        </button>
+        <button class="rps-pick-btn" onclick="RPS.play('paper')">
+          <span>✋</span>
+          <div id="rps-lbl-paper">Qog'oz</div>
+        </button>
+        <button class="rps-pick-btn" onclick="RPS.play('scissors')">
+          <span>✌️</span>
+          <div id="rps-lbl-scissors">Qaychi</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- 6. VIEW MATCHSTICK MATH -->
+    <div id="view-matches" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="matches-header-title">Gugurt Tenglamalari</span>
+        <button class="btn-icon-pill" onclick="MatchesGame.start()">🔄</button>
+      </div>
+
+      <!-- Level & Objective Badge (Progressive Difficulty) -->
+      <div class="matches-level-banner" style="display:flex; justify-content:space-between; align-items:center; background:rgba(30, 41, 59, 0.7); border:1px solid rgba(249, 115, 22, 0.35); padding:8px 14px; border-radius:12px; margin-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="background:linear-gradient(135deg, #f97316, #ea580c); color:#fff; font-weight:900; font-size:12px; padding:3px 8px; border-radius:6px;" id="matches-level-badge">1-BOSQICH</span>
+          <span style="font-size:13px; font-weight:800; color:#fde047;" id="matches-goal-text">1 ta cho'pni ko'chiring</span>
+        </div>
+        <div style="font-size:12px; font-weight:800; color:#94a3b8;" id="matches-prog-text">1 / 10</div>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="matches-lbl-score">BALL</div>
+          <div class="score-val" id="matches-score-val" style="color:#f97316;">0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="matches-lbl-hand">QO'LDA</div>
+          <div class="score-val" id="matches-hand-display" style="color:#fde047;">0 ta</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="matches-lbl-time">VAQT</div>
+          <div class="score-val" id="matches-time-val" style="color:#38bdf8;">0s</div>
+        </div>
+      </div>
+
+      <!-- Dynamic Guidance -->
+      <div style="text-align:center; margin:8px 0;">
+        <div id="matches-guide-text" style="font-size:12px; font-weight:700; color:#cbd5e1; background:rgba(15,23,42,0.8); border:1px solid rgba(249,115,22,0.3); border-radius:20px; padding:6px 14px; display:inline-block;">
+          Gugurt cho'pini olish uchun bosing, bo'sh joyga qo'yish uchun xira chiziqni bosing
+        </div>
+      </div>
+
+      <!-- Real Interactive Matchsticks Board -->
+      <div id="matches-board-container" class="match-board-container"></div>
+
+      <!-- 2x2 Clean Action Buttons (Green & Dark Orange) -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px;">
+        <button class="btn-action btn-dark-orange" onclick="MatchesGame.resetCurrentPuzzle()" id="matches-btn-reset" style="padding:12px 6px; font-size:13px; font-weight:800; border-radius:10px;">
+          <span id="matches-btn-reset-txt">Qaytarish</span>
+        </button>
+        <button class="btn-action btn-dark-orange" onclick="MatchesGame.skipPuzzle()" id="matches-btn-skip" style="padding:12px 6px; font-size:13px; font-weight:800; border-radius:10px;">
+          <span id="matches-btn-skip-txt">Boshqa</span>
+        </button>
+        <button class="btn-action btn-green" onclick="MatchesGame.showHint()" id="matches-btn-hint" style="padding:12px 6px; font-size:13px; font-weight:800; border-radius:10px;">
+          <span id="matches-btn-hint-txt">Yechim</span>
+        </button>
+        <button class="btn-action btn-green" onclick="MatchesGame.nextPuzzle()" id="matches-btn-next" style="padding:12px 6px; font-size:13px; font-weight:800; border-radius:10px;">
+          <span id="matches-btn-next-txt">Keyingi</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 7. VIEW FIELD OF WONDERS (POLUCHUDES) -->
+    <!-- 7. VIEW SO'Z TOPISH (FIELD OF WONDERS) -->
+    <div id="view-pole" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="pole-header-title">So'z Topish</span>
+        <button class="btn-icon-pill" onclick="PoleGame.start()">🔄</button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="pole-lbl-score">BALL</div>
+          <div class="score-val" id="pole-score-val" style="color:#eab308;">⭐ 0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="pole-lbl-lives">JONLAR</div>
+          <div class="score-val" id="pole-lives-val" style="color:#f43f5e; font-size:14px; letter-spacing:2px;">❤️❤️❤️❤️❤️</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="pole-lbl-question">SAVOL</div>
+          <div class="score-val" id="pole-q-num-val" style="color:#38bdf8; font-size:14px;">1 / 20</div>
+        </div>
+      </div>
+
+      <div class="card-box" style="margin-top:10px; text-align:center;">
+        <div style="display:inline-block; font-size:12px; font-weight:800; background:rgba(56, 189, 248, 0.15); color:#38bdf8; padding:4px 12px; border-radius:12px; margin-bottom:8px;" id="pole-topic-tag">📌 Mavzu</div>
+        <div id="pole-question-text" style="font-size:15px; font-weight:700; color:#fff; line-height:1.4; margin-bottom:12px;">Savol yuklanmoqda...</div>
+        <div id="pole-word-board" class="pole-board-wrap"></div>
+      </div>
+
+      <!-- Action Buttons: Hint & Whole Word Guess (No Icons, Green & Dark Orange) -->
+      <div style="display:flex; gap:10px; justify-content:center; margin:12px 0;">
+        <button class="btn-action btn-green" onclick="PoleGame.giveHint()" style="flex:1; padding:12px 14px; font-size:14px; font-weight:800; border-radius:12px;" id="pole-btn-hint">
+          <span id="pole-hint-lbl">Harf Ochish</span>
+        </button>
+        <button class="btn-action btn-dark-orange" onclick="PoleGame.openGuessWordModal()" style="flex:1; padding:12px 14px; font-size:14px; font-weight:800; border-radius:12px;" id="pole-btn-guess">
+          <span id="pole-guess-lbl">Butun So'zni Aytish</span>
+        </button>
+      </div>
+
+      <div id="pole-keyboard-box" class="pole-keyboard"></div>
+    </div>
+
+    <!-- 8. VIEW MEMORY (XOTIRA MASHQI) -->
+    <div id="view-memory" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="memory-header-title">Xotira Mashqi</span>
+        <button class="btn-icon-pill" onclick="MemoryGame.start()">🔄</button>
+      </div>
+      <div class="scoreboard">
+        <div class="score-col"><div class="score-lbl" id="memory-lbl-score">BALL</div><div class="score-val" id="memory-score-val" style="color:#eab308;">⭐ 0</div></div>
+        <div class="score-col"><div class="score-lbl" id="memory-lbl-moves">URINISHLAR</div><div class="score-val" id="memory-moves-val" style="color:#38bdf8;">0</div></div>
+        <div class="score-col"><div class="score-lbl" id="memory-lbl-time">VAQT</div><div class="score-val" id="memory-time-val" style="color:#f43f5e;">⏱️ 0s</div></div>
+      </div>
+      <!-- Expanded Responsive 4x4 Grid -->
+      <div style="width:100%; max-width:480px; margin:16px auto; padding:0 8px;">
+        <div id="memory-board" class="memory-grid-4x4"></div>
+      </div>
+    </div>
+
+    <!-- 10. VIEW MINESWEEPER (MINA QIDIRUVCHI 9X9) -->
+    <div id="view-mines" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="mines-header-title">Mina Qidiruvchi</span>
+        <div>
+          <button class="btn-icon-pill" onclick="MinesGame.start()">🔄</button>
+        </div>
+      </div>
+
+      <div class="mines-container">
+        <!-- Header Info Bar: Left Mines, Restart Smiley, Timer -->
+        <div class="mines-header-bar">
+          <div class="mines-digital-box">
+            <span class="mines-digital-label" id="lbl-mines-mines">MINALAR</span>
+            <div class="mines-retro-counter" id="mines-count-val">10</div>
+          </div>
+
+          <div class="mines-smiley-btn" id="mines-restart-face" onclick="MinesGame.start()">😃</div>
+
+          <div class="mines-digital-box">
+            <span class="mines-digital-label" id="lbl-mines-time">VAQT</span>
+            <div class="mines-retro-counter" id="mines-timer-val">000</div>
+          </div>
+        </div>
+
+        <!-- Quick Flag/Dig Mode Toggle Bar -->
+        <div class="mines-tools-bar">
+          <button class="mines-mode-btn mines-dig-active" id="mines-mode-toggle-btn" onclick="MinesGame.toggleFlagMode()">Ochish</button>
+        </div>
+
+        <!-- 9x9 Responsive Board -->
+        <div id="mines-board" class="mines-board-9x9"></div>
+
+        <!-- Status / Gesture Hint -->
+        <div id="mines-status-hint" style="font-size:12px; color:#94a3b8; font-weight:700; text-align:center; margin-top:4px;">
+          Bosish: ochish | Uzoq bosish: bayroq
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. VIEW COLOR BRAIN / STROOP TEST -->
+    <div id="view-stroop" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="stroop-header-title">Rangli So'zlar</span>
+        <div>
+          <button class="btn-icon-pill" onclick="StroopGame.start()">🔄</button>
+        </div>
+      </div>
+
+      <div class="stroop-container">
+        <!-- Stats Header Bar -->
+        <div class="stroop-header-bar">
+          <div class="stroop-badge" id="stroop-time-val" style="color:#f43f5e;">⏱️ 30s</div>
+          <div class="stroop-badge" id="stroop-score-val" style="color:#facc15;">⭐ 0</div>
+          <div class="stroop-badge" id="stroop-combo-val" style="color:#f97316;">🔥 0x</div>
+          <div class="stroop-badge" id="stroop-best-val" style="color:#38bdf8;">🏆 0</div>
+        </div>
+
+        <!-- Mascot Mood & Intrigue Alert Row -->
+        <div class="stroop-mascot-row" id="stroop-mascot-row">
+          <span class="stroop-mascot-icon" id="stroop-mascot-icon">🧐</span>
+          <span class="stroop-mascot-txt" id="stroop-mascot-txt">Matn rangini toping!</span>
+        </div>
+
+        <!-- Trick Alert Banner (Hidden by default) -->
+        <div class="stroop-trick-banner" id="stroop-trick-banner" style="display:none;">
+          ⚡ TESKARI REJIM: SO'ZNING O'ZINI BOSING! ⚡
+        </div>
+
+        <!-- Instruction Rule -->
+        <div class="stroop-instruction-card" id="stroop-instruction-text">
+          Diqqat: So'zni o'qimang! U qaysi rangda yozilgan bo'lsa, o'sha rangli tugmani bosing!
+        </div>
+
+        <!-- Central Big Display Word Card -->
+        <div class="stroop-word-card" id="stroop-word-card">
+          <div class="stroop-word" id="stroop-display-word">QIZIL</div>
+        </div>
+
+        <!-- Start / Restart Button -->
+        <button class="btn-action btn-green" id="stroop-start-btn" onclick="StroopGame.start()" style="max-width:380px; width:100%; padding:16px; font-size:18px; font-weight:900; border-radius:14px; display:none;">
+          Boshlash
+        </button>
+
+        <!-- 4 Large Thumb-friendly Color Buttons (Equal 2x2 Grid) -->
+        <div class="stroop-btn-grid" id="stroop-active-arena">
+          <button class="stroop-btn stroop-btn-red" onclick="StroopGame.chooseColor('red')">
+            <span id="lbl-color-red">QIZIL</span>
+          </button>
+          <button class="stroop-btn stroop-btn-green" onclick="StroopGame.chooseColor('green')">
+            <span id="lbl-color-green">YASHIL</span>
+          </button>
+          <button class="stroop-btn stroop-btn-blue" onclick="StroopGame.chooseColor('blue')">
+            <span id="lbl-color-blue">KO'K</span>
+          </button>
+          <button class="stroop-btn stroop-btn-yellow" onclick="StroopGame.chooseColor('yellow')">
+            <span id="lbl-color-yellow">SARIQ</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. VIEW MATH MAZE (5X5 PATHFINDING PUZZLE - 100) -->
+    <div id="view-mathmaze" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="mathmaze-header-title">Matematik Labirint</span>
+        <div>
+          <button class="btn-icon-pill" onclick="MathMaze.start()">🔄</button>
+        </div>
+      </div>
+
+      <div class="mathmaze-container" id="mathmaze-container">
+        <!-- Top Stats Bar -->
+        <div class="maze-header-bar">
+          <div class="maze-stat-box">
+            <span class="maze-stat-label" id="lbl-maze-goal">MAQSAD</span>
+            <div class="maze-stat-val" style="color:#facc15;">🎯 100</div>
+          </div>
+
+          <div class="maze-stat-box">
+            <span class="maze-stat-label" id="lbl-maze-current">YIG'INDI</span>
+            <div class="maze-sum-badge" id="mathmaze-sum-val">0</div>
+          </div>
+
+          <div class="maze-stat-box">
+            <span class="maze-stat-label" id="lbl-maze-steps">QADAM</span>
+            <div class="maze-stat-val" id="mathmaze-steps-val">0/8</div>
+          </div>
+
+          <div class="maze-stat-box">
+            <span class="maze-stat-label" id="lbl-maze-level">BOSQICH</span>
+            <div class="maze-stat-val" id="mathmaze-lvl-val" style="color:#38bdf8;">1</div>
+          </div>
+        </div>
+
+        <!-- Progress Bar towards 100 -->
+        <div class="maze-progress-wrap">
+          <div class="maze-progress-bar" id="mathmaze-progress-bar"></div>
+        </div>
+
+        <!-- Rule / Status message with Runner Speech Bubble -->
+        <div class="maze-instruction-card" id="mathmaze-status-hint">
+          Faqat pastga ⬇️ va o'ngga ➡️ yuring. Marraga borganda yig'indi aniq 100 bo'lishi shart!
+        </div>
+
+        <!-- 5x5 Grid Board (Unique ID to avoid collision with classic maze!) -->
+        <div id="mathmaze-board" class="maze-grid-5x5"></div>
+
+        <!-- Action Controls Bar (With Solution Button, Green & Dark Orange, No Icons) -->
+        <div class="maze-controls-bar">
+          <button class="maze-btn maze-btn-undo" onclick="MathMaze.undoStep()" id="mathmaze-undo-btn"><span id="mathmaze-undo-txt">1 Qadam Orqaga</span></button>
+          <button class="maze-btn maze-btn-reset" onclick="MathMaze.resetPath()" id="mathmaze-reset-btn"><span id="mathmaze-reset-txt">Boshidan Boshlash</span></button>
+          <button class="maze-btn maze-btn-solution" onclick="MathMaze.showSolution()" id="mathmaze-sol-btn"><span id="mathmaze-sol-txt">Yechim</span></button>
+          <button class="maze-btn maze-btn-next" onclick="MathMaze.nextLevel()" id="mathmaze-next-btn"><span id="mathmaze-next-txt">Keyingi Bosqich</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. VIEW FRUIT EQUATIONS (ALGEBRAIC FRUIT PUZZLE) -->
+    <div id="view-fruitmath" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="fruitmath-header-title">Mevali Tenglamalar</span>
+        <div>
+          <button class="btn-icon-pill" onclick="FruitGame.start()">🔄</button>
+        </div>
+      </div>
+
+      <div class="fruitmath-container">
+        <!-- Top Stats Bar -->
+        <div class="fruitmath-header-bar">
+          <div class="stroop-badge" style="color:#38bdf8;">
+            <span id="lbl-fruit-lvl">Bosqich</span>: <b id="fruit-level-val">1</b>
+          </div>
+          <div class="stroop-badge" style="color:#facc15;">
+            ⭐ <span id="fruit-score-val">0</span>
+          </div>
+          <div class="stroop-badge" id="fruit-streak-val" style="color:#f97316;">
+            🔥 0
+          </div>
+        </div>
+
+        <!-- Chalkboard Equations -->
+        <div class="fruitmath-chalkboard" id="fruit-board"></div>
+
+        <!-- Solution / Step by step card -->
+        <div class="fruitmath-solution-box" id="fruit-solution-box"></div>
+
+        <!-- Quick 4 multiple-choice buttons -->
+        <div class="fruitmath-options-grid" id="fruit-options-grid"></div>
+
+        <!-- Input & Submit line -->
+        <div class="fruitmath-input-wrap">
+          <div class="fruitmath-input-display" id="fruit-input-val">?</div>
+          <button class="fruitmath-submit-btn" id="fruit-submit-btn" onclick="FruitGame.submitAnswer()">Tekshirish</button>
+        </div>
+
+        <!-- Touch Numpad -->
+        <div class="fruitmath-keypad">
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('1')">1</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('2')">2</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('3')">3</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('4')">4</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('5')">5</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('6')">6</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('7')">7</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('8')">8</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('9')">9</button>
+          <button class="fruitmath-key fn" onclick="FruitGame.pressKey('C')">C</button>
+          <button class="fruitmath-key" onclick="FruitGame.pressKey('0')">0</button>
+          <button class="fruitmath-key fn" onclick="FruitGame.pressKey('back')">⌫</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. VIEW TIC TAC TOE 5X5 -->
+    <div id="view-ttt5" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="ttt5-header-title">X va O (5x5)</span>
+        <button class="btn-icon-pill" onclick="TTT5.newRound()">🔄</button>
+      </div>
+
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="ttt5-tab-bot" onclick="TTT5.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Bot</span>
+        </button>
+        <button class="mode-tab-btn" id="ttt5-tab-player" onclick="App.open2pModal('ttt5')">
+          <span class="lbl-vs-player">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="ttt5-tab-online" onclick="Multiplayer.openChallengeModal('ttt5')">
+          <span>🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-col">
+          <div class="score-lbl" id="ttt5-lbl-x">X (Siz)</div>
+          <div class="score-val" id="ttt5-score-x" style="color:#f43f5e;">0</div>
+        </div>
+        <div class="score-mid">
+          <div style="font-size:10px; color:#94a3b8;" id="ttt5-draw-lbl">DURANG</div>
+          <div id="ttt5-score-draw" style="font-size:18px; color:#fff;">0</div>
+        </div>
+        <div class="score-col">
+          <div class="score-lbl" id="ttt5-lbl-o">O (Bot)</div>
+          <div class="score-val" id="ttt5-score-o" style="color:#38bdf8;">0</div>
+        </div>
+      </div>
+
+      <!-- Rule indicator -->
+      <div class="ttt5-rule-note" id="ttt5-rule-note-txt">
+        🎯 G'alaba uchun: ketma-ket 4 ta belgi (gorizontal, vertikal yoki diagonal)
+      </div>
+
+      <div class="ttt-status-pill">
+        <div class="ttt-turn-dot dot-x" id="ttt5-turn-dot">X</div>
+        <span id="ttt5-status-msg">Sizning navbatingiz (X)</span>
+      </div>
+
+      <!-- STRICT 5X5 GRID (25 cells) -->
+      <div class="ttt5-board-container" id="ttt5-board">
+        <div class="ttt5-cell" onclick="TTT5.clickCell(0)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(1)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(2)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(3)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(4)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(5)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(6)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(7)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(8)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(9)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(10)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(11)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(12)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(13)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(14)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(15)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(16)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(17)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(18)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(19)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(20)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(21)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(22)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(23)"></div>
+        <div class="ttt5-cell" onclick="TTT5.clickCell(24)"></div>
+      </div>
+
+      <button class="btn-action btn-green" onclick="TTT5.newRound()" id="ttt5-btn-new-round">Yangi Raund</button>
+    </div>
+
+    <!-- 16. VIEW BATTLESHIP 5X5 -->
+    <div id="view-battleship5" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="bs5-header-title">Dengiz Jangi (5x5)</span>
+        <div>
+          <button class="btn-icon-pill" onclick="Battleship5.enterPlacementPhase()">🔄</button>
+          <button class="btn-icon-pill" onclick="Battleship5.enterPlacementPhase()">⚙️</button>
+        </div>
+      </div>
+
+      <!-- Mode Selector -->
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="bs5-tab-bot" onclick="Battleship5.setMode('bot')">
+          <span class="lbl-vs-bot">🤖 Botga qarshi</span>
+        </button>
+        <button class="mode-tab-btn" id="bs5-tab-player" onclick="App.open2pModal('battleship5')">
+          <span class="lbl-vs-player">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="bs5-tab-online" onclick="Multiplayer.openChallengeModal('battleship5')">
+          <span>🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <!-- PHASE 1: SHIP PLACEMENT -->
+      <div id="bs5-placement-card">
+        <div class="bs-placement-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:13px; font-weight:800; color:#38bdf8;" id="bs5-placement-title">Kemalarni Joylashtirish</span>
+            <button class="btn-action btn-green" style="width:auto; padding:6px 14px; font-size:12px; border-radius:8px;" id="bs5-btn-rotate" onclick="Battleship5.toggleOrientation()">Gorizontal</button>
+          </div>
+
+          <!-- Ships tray -->
+          <div class="bs-ships-tray" id="bs5-ships-tray"></div>
+
+          <!-- Placement 5x5 Grid -->
+          <div class="bs5-grid" id="bs5-placement-grid"></div>
+
+          <!-- Placement actions -->
+          <div class="bs-placement-actions">
+            <button class="btn-bs-sub btn-dark-orange" onclick="Battleship5.autoPlaceMyFleet()" id="bs5-btn-auto">Avto Joylash</button>
+            <button class="btn-bs-sub btn-dark-orange" onclick="Battleship5.clearMyFleet()" id="bs5-btn-clear">Tozalash</button>
+          </div>
+          <button class="btn-action btn-green" style="margin-top:10px;" id="bs5-btn-start-battle" onclick="Battleship5.startBattle()">Jangni Boshlash</button>
+        </div>
+      </div>
+
+      <!-- PHASE 2: BATTLE RADAR -->
+      <div id="bs5-battle-card" style="display:none;">
+        <!-- Scoreboard -->
+        <div class="scoreboard">
+          <div class="score-col">
+            <div class="score-lbl" id="bs5-score-lbl-you">Siz</div>
+            <div class="score-val" id="bs5-my-score" style="color:#38bdf8;">0</div>
+          </div>
+          <div class="score-mid">
+            <div style="font-size:10px; color:#94a3b8;" id="bs5-fleet-status-lbl">FLOT HOLATI</div>
+            <div style="font-size:13px; font-weight:800; color:#fff;" id="bs5-my-remaining">🚢 4/4</div>
+          </div>
+          <div class="score-col">
+            <div class="score-lbl" id="bs5-opp-label">Dushman</div>
+            <div class="score-val" id="bs5-opp-score" style="color:#f43f5e;">0</div>
+          </div>
+        </div>
+
+        <!-- Radar Card (Enemy Grid 5x5) -->
+        <div class="bs-radar-card" style="max-width:350px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:12px; font-weight:800; color:#38bdf8;" id="bs5-target-radar-lbl">🎯 NISHON RADARI (5x5)</span>
+            <span style="font-size:12px; font-weight:800; color:#f43f5e;" id="bs5-opp-remaining">🎯 4/4</span>
+          </div>
+          <div class="bs5-grid" id="bs5-opp-grid"></div>
+        </div>
+
+        <!-- Status Indicator -->
+        <div class="ttt-status-pill">
+          <span id="bs5-status-msg" style="color:#38bdf8;">Sizning navbatingiz: Dushman katagiga bosing!</span>
+        </div>
+
+        <!-- Fleet Box Mini -->
+        <div class="bs-fleet-box" style="max-width:350px;">
+          <div class="bs5-mini-grid" id="bs5-my-grid"></div>
+          <div style="flex:1;">
+            <div style="font-size:13px; font-weight:800; color:#fff; margin-bottom:4px;" id="bs5-your-fleet-lbl">Sizning Flotingiz</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px;" id="bs5-fleet-ships-desc">1x(3), 1x(2), 2x(1) kemalar</div>
+            <button class="btn-action btn-dark-orange" style="padding:6px 10px; font-size:11px;" onclick="Battleship5.backToPlacement()" id="bs5-btn-reposition">Flotni O'zgartirish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17. VIEW CHESS (SHAXMAT) -->
+    <div id="view-chess" class="view">
+      <div class="nav-bar">
+        <button class="btn-back" onclick="App.goView('menu')">⬅ Chiqish</button>
+        <span class="page-title" id="chess-header-title">Shaxmat</span>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-icon-pill" onclick="ChessGame.toggleSettings()" id="chess-btn-toggle-settings" title="Sozlamalar">⚙️</button>
+          <button class="btn-icon-pill" onclick="ChessGame.startNewGame(false)" title="Yangi o'yin">🔄</button>
+        </div>
+      </div>
+
+      <!-- Mode Selector: Bot vs 2 Players vs Onlayn -->
+      <div class="mode-switch-group">
+        <button class="mode-tab-btn active" id="chess-tab-bot" onclick="ChessGame.setMode('bot')">
+          <span id="chess-tab-bot-txt">🤖 Botga qarshi</span>
+        </button>
+        <button class="mode-tab-btn" id="chess-tab-local" onclick="App.open2pModal('chess')">
+          <span id="chess-tab-local-txt">👥 2 O'yinchi</span>
+        </button>
+        <button class="mode-tab-btn" id="chess-tab-online" onclick="Multiplayer.openChallengeModal('chess')">
+          <span id="chess-tab-online-txt">🌐 Onlayn</span>
+        </button>
+      </div>
+
+      <!-- Unified Match Settings Card (Rang, Daraja, Vaqt) -->
+      <div class="chess-settings-card" id="chess-settings-card">
+        <div class="chess-settings-header">
+          <span class="chess-settings-title" id="chess-settings-card-title">⚙️ O'yin Sozlamalari</span>
+          <button class="chess-settings-collapse-btn" onclick="ChessGame.toggleSettings(false)" id="chess-settings-collapse-btn" title="Yashirish">✕</button>
+        </div>
+
+        <!-- Row 1: Rang tanlash (Color Selection) -->
+        <div class="chess-setting-group" id="chess-color-select-bar">
+          <div class="chess-setting-label-row">
+            <span class="chess-setting-icon">🎨</span>
+            <span class="chess-setting-label" id="chess-lbl-color">Rang:</span>
+          </div>
+          <div class="chess-pill-row">
+            <button class="chess-pill-btn active" id="chess-color-w" onclick="ChessGame.setColorChoice('w')">
+              ⚪ <span id="chess-color-w-txt">Oqlar</span>
+            </button>
+            <button class="chess-pill-btn" id="chess-color-random" onclick="ChessGame.setColorChoice('random')">
+              🎲 <span id="chess-color-random-txt">Tasodifiy</span>
+            </button>
+            <button class="chess-pill-btn" id="chess-color-b" onclick="ChessGame.setColorChoice('b')">
+              ⚫ <span id="chess-color-b-txt">Qoralar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Row 2: Qiyinlik darajasi (Difficulty - for Bot mode) -->
+        <div class="chess-setting-group" id="chess-difficulty-bar">
+          <div class="chess-setting-label-row">
+            <span class="chess-setting-icon">⚡</span>
+            <span class="chess-setting-label" id="chess-lbl-diff">Qiyinlik:</span>
+          </div>
+          <div class="chess-pill-row">
+            <button class="chess-pill-btn" id="chess-diff-easy" onclick="ChessGame.setDifficulty('easy')">🟢 Oson</button>
+            <button class="chess-pill-btn active" id="chess-diff-medium" onclick="ChessGame.setDifficulty('medium')">🟡 O'rta</button>
+            <button class="chess-pill-btn" id="chess-diff-hard" onclick="ChessGame.setDifficulty('hard')">🔴 Qiyin</button>
+            <button class="chess-pill-btn" id="chess-diff-master" onclick="ChessGame.setDifficulty('master')">🏆 Usta</button>
+          </div>
+        </div>
+
+        <!-- Row 3: Vaqt nazorati (Time Limit) -->
+        <div class="chess-setting-group" id="chess-time-select-bar">
+          <div class="chess-setting-label-row">
+            <span class="chess-setting-icon">⏱️</span>
+            <span class="chess-setting-label" id="chess-lbl-time">Vaqt:</span>
+          </div>
+          <div class="chess-pill-row time-pills">
+            <button class="chess-pill-btn" id="chess-time-1m" onclick="ChessGame.setTimeLimit('1m')">⚡ 1 daq</button>
+            <button class="chess-pill-btn" id="chess-time-3m" onclick="ChessGame.setTimeLimit('3m')">⚡ 3 daq</button>
+            <button class="chess-pill-btn active" id="chess-time-5m" onclick="ChessGame.setTimeLimit('5m')">⏱️ 5 daq</button>
+            <button class="chess-pill-btn" id="chess-time-10m" onclick="ChessGame.setTimeLimit('10m')">⌛ 10 daq</button>
+            <button class="chess-pill-btn" id="chess-time-unlimited" onclick="ChessGame.setTimeLimit('unlimited')">♾️ Cheksiz</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact Quick Settings Summary Pill (visible when settings card is minimized) -->
+      <div class="chess-quick-settings-bar" id="chess-quick-settings-bar" onclick="ChessGame.toggleSettings(true)" style="display:none;">
+        <span id="chess-quick-summary-txt">🎨 Oqlar • ⚡ O'rta • ⏱️ 5 daq</span>
+        <span style="font-size:11px; opacity:0.8;">⚙️ O'zgartirish ▾</span>
+      </div>
+
+      <!-- Pro Chess Arena: Opponent Strip (Above Board) -->
+      <div class="chess-player-strip top" id="chess-opponent-strip">
+        <div class="chess-player-meta">
+          <span class="chess-player-avatar" id="chess-opp-avatar">🤖</span>
+          <div class="chess-player-details">
+            <span class="chess-player-name" id="chess-opp-name">Bot (O'rta)</span>
+            <div class="chess-captured-tray" id="chess-captured-b"></div>
+          </div>
+        </div>
+        <div class="chess-digital-clock" id="chess-clock-box-b">
+          <span class="chess-clock-piece" id="chess-clock-icon-b">⚫</span>
+          <span class="chess-time-val" id="chess-time-val-b">05:00</span>
+        </div>
+      </div>
+
+      <!-- 8X8 CHESS BOARD WRAPPER -->
+      <div class="chess-board-wrap">
+        <div class="chess-board" id="chess-board"></div>
+      </div>
+
+      <!-- Pro Chess Arena: Player Strip (Below Board) -->
+      <div class="chess-player-strip bottom" id="chess-player-strip">
+        <div class="chess-player-meta">
+          <span class="chess-player-avatar" id="chess-player-avatar">👤</span>
+          <div class="chess-player-details">
+            <span class="chess-player-name" id="chess-player-name">Siz</span>
+            <div class="chess-player-captured-row">
+              <div class="chess-captured-tray" id="chess-captured-w"></div>
+              <span class="chess-material-diff" id="chess-material-diff"></span>
+            </div>
+          </div>
+        </div>
+        <div class="chess-digital-clock active" id="chess-clock-box-w">
+          <span class="chess-clock-piece" id="chess-clock-icon-w">⚪</span>
+          <span class="chess-time-val" id="chess-time-val-w">05:00</span>
+        </div>
+      </div>
+
+      <!-- Dedicated Timer & Actions Flank Strip: [ 🤝 Durang ] [ ⏱️ Timer & Turn ] [ 🏳️ Taslim ] -->
+      <div class="chess-timer-flank-row">
+        <button class="btn-chess-flank btn-chess-draw" onclick="ChessGame.offerDraw()" id="chess-btn-draw" title="Durang">
+          <span class="btn-chess-icon">🤝</span>
+          <span class="btn-chess-txt" id="chess-btn-draw-txt">Durang</span>
+        </button>
+
+        <div class="chess-center-timer-pill" id="chess-status-pill">
+          <div style="display:flex; align-items:center; gap:4px;">
+            <span id="chess-turn-dot" style="font-size:14px;">⚪</span>
+            <span id="chess-status-msg" style="font-weight:700;">Oqlar navbati</span>
+          </div>
+          <span class="chess-center-clock-badge" id="chess-active-timer-badge">⏱️ 05:00</span>
+        </div>
+
+        <button class="btn-chess-flank btn-chess-resign" onclick="ChessGame.resignGame()" id="chess-btn-resign" title="Taslim bo'lish">
+          <span class="btn-chess-icon">🏳️</span>
+          <span class="btn-chess-txt" id="chess-btn-resign-txt">Taslim</span>
+        </button>
+      </div>
+
+      <!-- Action Controls (Undo, Flip, New Game) -->
+      <div class="chess-controls-row" id="chess-action-bar">
+        <button class="btn-chess-action btn-chess-undo" onclick="ChessGame.undoMove()" id="chess-btn-undo" title="Qaytarish">
+          <span class="btn-chess-icon">↩</span>
+          <span class="btn-chess-txt" id="chess-btn-undo-txt">Qaytarish</span>
+        </button>
+        <button class="btn-chess-action btn-chess-flip" onclick="ChessGame.flipBoard()" id="chess-btn-flip" title="Aylantirish">
+          <span class="btn-chess-icon">🔄</span>
+          <span class="btn-chess-txt" id="chess-btn-flip-txt">Aylantirish</span>
+        </button>
+        <button class="btn-chess-action btn-chess-new" onclick="ChessGame.promptNewGameWithTime()" id="chess-btn-new" title="Yangi o'yin">
+          <span class="btn-chess-icon">⚡</span>
+          <span class="btn-chess-txt" id="chess-btn-new-txt">Yangi</span>
+        </button>
+      </div>
+      <div id="chess-vs-player-controls" style="display:none;"></div>
+
+      <!-- Move History Notation -->
+      <div class="chess-history-wrap" id="chess-move-history"></div>
+    </div>
+  </div> <!-- end #app-container -->
+
+  <!-- FIELD OF WONDERS GUESS WHOLE WORD MODAL -->
+  <div class="modal-backdrop" id="pole-word-modal">
+    <div class="modal-sheet" style="border: 2px solid #a855f7; max-width:420px;">
+      <div class="modal-icon" style="color:#a855f7;">💡</div>
+      <div class="modal-head" id="pole-modal-word-title" style="color:#c084fc;">Butun So'zni Kiritish</div>
+      <div class="modal-body" id="pole-modal-word-desc" style="font-size:14px; margin-bottom:14px;">Agar javobni bilsangiz, butun so'zni birdaniga yozing:</div>
+      <input type="text" id="pole-word-input" placeholder="SO'ZNI YOZING" style="width:100%; padding:14px; font-size:18px; font-weight:800; text-align:center; text-transform:uppercase; letter-spacing:3px; background:rgba(0,0,0,0.5); border:2px solid #a855f7; border-radius:10px; color:#fff; margin-bottom:16px;" maxlength="30" autocomplete="off" />
+      <div style="display:flex; gap:10px;">
+        <button class="btn-action btn-dark-orange" onclick="PoleGame.closeGuessWordModal()" id="pole-modal-word-cancel">Bekor qilish</button>
+        <button class="btn-action btn-green" onclick="PoleGame.submitFullWord()" id="pole-modal-word-submit">Tasdiqlash</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATCHSTICK SOLUTION / VICTORY MODAL -->
+  <div class="modal-backdrop" id="matches-solution-modal">
+    <div class="modal-sheet" style="border: 2px solid #f97316; max-width:440px;">
+      <div class="modal-icon" id="matches-sol-icon">🎉</div>
+      <div class="modal-head" id="matches-sol-title" style="color:#fb923c;">To'g'ri Tenglama!</div>
+      <div id="matches-sol-eq" style="font-size:26px; font-weight:900; color:#fff; font-family:'Courier New', monospace; letter-spacing:4px; margin:10px 0; background:rgba(0,0,0,0.4); padding:10px; border-radius:10px;">0 + 4 = 4</div>
+      <div id="matches-sol-step" style="font-size:13px; color:#cbd5e1; line-height:1.5; margin-bottom:12px; text-align:left; background:rgba(255,255,255,0.05); padding:10px; border-radius:8px;"></div>
+      <div id="matches-sol-visual" style="font-size:12px; color:#94a3b8; line-height:1.4; white-space:pre-wrap; margin-bottom:14px; text-align:left; font-family:monospace; background:rgba(0,0,0,0.3); padding:8px; border-radius:6px;"></div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn-action btn-dark-orange" onclick="MatchesGame.closeSolutionModal()" id="matches-sol-btn-close">Yopish</button>
+        <button class="btn-action btn-green" onclick="MatchesGame.onModalNext()" id="matches-sol-btn-next">Keyingisi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MULTIPLAYER CHALLENGE & ONLINE SEARCH MODAL -->
+  <div class="modal-backdrop" id="mp-challenge-modal">
+    <div class="modal-sheet">
+      <div class="modal-icon">👥</div>
+      <div class="modal-head" id="mp-modal-main-title">Raqib Bilan O'ynash</div>
+      <div style="font-size:13px; color:#38bdf8; font-weight:800; margin-bottom:14px;" id="mp-modal-game-title">O'yin Nomi</div>
+
+      <!-- Tabs -->
+      <div class="level-tabs" style="margin-bottom:16px;">
+        <button class="lvl-btn active" id="mp-tab-id" onclick="Multiplayer.setMpTab('id')">🆔 ID orqali</button>
+        <button class="lvl-btn" id="mp-tab-radar" onclick="Multiplayer.setMpTab('radar')">🔍 Onlayn qidirish</button>
+        <button class="lvl-btn" id="mp-tab-recent" onclick="Multiplayer.setMpTab('recent')">👥 Do'stlar</button>
+      </div>
+
+      <!-- Tab 1: By ID -->
+      <div id="mp-body-id">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;" id="mp-id-desc-text">Do'stingizning 4 xonali ID raqamini kiriting va chaqiruv yuboring:</p>
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
+          <input type="text" inputmode="numeric" pattern="[0-9]*" class="modal-sheet" id="mp-target-id-input" placeholder="Raqib ID raqami (masalan: 4892)" style="flex:1; padding:14px; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); border-radius:var(--radius-sm); color:#fff; font-size:18px; font-weight:800; text-align:center; margin:0;" onkeydown="if(event.key==='Enter') Multiplayer.sendInviteById()" />
+          <button class="btn-action btn-secondary" style="width:auto; padding:0 16px; margin:0; font-size:16px; font-weight:800; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center;" onclick="Multiplayer.pasteTargetId()" title="Nusxalangan ID ni qo'yish" id="btn-paste-id">📋</button>
+        </div>
+        <button class="btn-action btn-green" onclick="Multiplayer.sendInviteById()">
+          <span id="btn-send-invite-txt">Taklif Yuborish</span>
+        </button>
+      </div>
+
+      <!-- Tab 2: Online Search -->
+      <div id="mp-body-radar" style="display:none;">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;" id="mp-radar-desc-text">Hozir onlayn bo'lgan barcha o'yinchilarni qidiring:</p>
+        <button class="btn-action btn-green" id="btn-radar-act" onclick="Multiplayer.startRadarSearch()">O'yinchi Qidirish</button>
+        <div id="mp-online-list" style="margin-top:14px; max-height:160px; overflow-y:auto;"></div>
+      </div>
+
+      <!-- Tab 3: Friends (Do'stlar) -->
+      <div id="mp-body-recent" style="display:none;">
+        <div class="recent-rivals-container" id="mp-recent-list">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <button class="btn-action btn-secondary" style="margin-top:10px;" id="btn-mp-cancel" onclick="Multiplayer.closeChallengeModal()">Bekor Qilish</button>
+    </div>
+  </div>
+
+  <!-- INCOMING CHALLENGE POPUP -->
+  <div class="modal-backdrop" id="incoming-invite-modal">
+    <div class="modal-sheet">
+      <div class="modal-icon">🔔</div>
+      <div class="modal-head" id="m-incoming-title">O'yin Taklifi!</div>
+      <div class="modal-body" id="m-incoming-desc">Raqib sizni o'yinga taklif qilmoqda:</div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn-action btn-green" id="btn-incoming-accept" onclick="Multiplayer.acceptIncoming()">Qabul Qilish</button>
+        <button class="btn-action btn-dark-orange" id="btn-incoming-decline" onclick="Multiplayer.declineIncoming()">Rad Etish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOTA 2 STYLE MATCH FOUND MODAL -->
+  <div class="modal-backdrop" id="dota-match-modal" style="z-index: 600;">
+    <div class="modal-sheet" style="border: 2px solid #10b981; box-shadow: 0 0 40px rgba(16, 185, 129, 0.4);">
+      <div class="modal-icon" style="animation: pulse 1.5s infinite; color: #10b981;">⚔️</div>
+      <div class="modal-head" id="dota-match-title" style="color: #10b981; font-size: 24px;">O'YIN TOPILDI!</div>
+      <div class="modal-body" id="dota-match-desc" style="font-weight: 800; font-size: 16px;">Raqib topildi!</div>
+      <div class="math-timer-bar" style="margin: 15px 0;">
+        <div class="math-timer-fill" id="dota-timer-fill" style="background: #10b981;"></div>
+      </div>
+      <div id="dota-ready-status" style="font-size:14px; color:var(--text-muted); margin-bottom:15px; font-weight:700;">Tayyor: 0/2</div>
+      <div style="display:flex; gap:10px; flex-direction:column;">
+        <button class="btn-action btn-green" id="dota-accept-btn" onclick="Multiplayer.acceptDotaMatch()" style="padding: 16px; font-size: 16px; font-weight: 900;">QABUL QILISH</button>
+        <button class="btn-action btn-dark-orange" id="dota-decline-btn" onclick="Multiplayer.declineDotaMatch()" style="padding: 12px; font-size: 14px; font-weight: 700;">Rad etish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIVERSAL 2 PLAYERS SELECTION MODAL (ID, ONLINE RADAR, LOCAL) -->
+  <div class="modal-backdrop" id="universal-2p-modal" style="z-index: 650;">
+    <div class="modal-sheet" style="max-width:380px;">
+      <div class="modal-icon">👥</div>
+      <div class="modal-head" id="univ-2p-modal-title">2 O'yinchi</div>
+      <div style="font-size:13px; color:var(--text-muted); margin-bottom:14px;" id="univ-2p-modal-desc">Raqib bilan o'ynash usulini tanlang:</div>
+
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;">
+        <!-- Option 1: ID orqali bog'lanish -->
+        <button class="chess-2p-option-card chess-2p-opt-id" onclick="App.on2pSelectOnlineId()">
+          <div class="chess-2p-opt-icon">🆔</div>
+          <div class="chess-2p-opt-text">
+            <span class="chess-2p-opt-title" id="univ-opt-id-title">ID orqali bog'lanish</span>
+            <span class="chess-2p-opt-sub" id="univ-opt-id-desc">Do'stingizning ID raqamini kiritib chaqiruv yuboring</span>
+          </div>
+        </button>
+
+        <!-- Option 2: Onlayn qidiruv (Radar) -->
+        <button class="chess-2p-option-card chess-2p-opt-radar" onclick="App.on2pSelectOnlineRadar()">
+          <div class="chess-2p-opt-icon">🔍</div>
+          <div class="chess-2p-opt-text">
+            <span class="chess-2p-opt-title" id="univ-opt-radar-title">Onlayn qidiruv (Radar)</span>
+            <span class="chess-2p-opt-sub" id="univ-opt-radar-desc">Faol onlayn o'yinchilarni qidirish va tezkor o'yin</span>
+          </div>
+        </button>
+
+        <!-- Option 3: Bitta telefonda o'ynash -->
+        <button class="chess-2p-option-card chess-2p-opt-local" onclick="App.on2pSelectLocal()">
+          <div class="chess-2p-opt-icon">📱</div>
+          <div class="chess-2p-opt-text">
+            <span class="chess-2p-opt-title" id="univ-opt-local-title">Bitta telefonda o'ynash</span>
+            <span class="chess-2p-opt-sub" id="univ-opt-local-desc">Ikkala o'yinchi bitta qurilmada navbatma-navbat o'ynaydi</span>
+          </div>
+        </button>
+      </div>
+
+      <button class="btn-action btn-secondary" style="margin-top:0;" onclick="App.close2pModal()" id="univ-2p-cancel-btn">Bekor Qilish</button>
+    </div>
+  </div>
+
+  <!-- CHESS TIME CONTROL SELECTION MODAL (NEW GAME) -->
+  <div class="modal-backdrop" id="chess-time-select-modal" style="z-index: 680;">
+    <div class="modal-sheet" style="max-width:350px; text-align:center;">
+      <div class="modal-icon">⏱️</div>
+      <div class="modal-head" id="chess-time-modal-title">Vaqt Nazorati</div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;" id="chess-time-modal-desc">
+        O'yin uchun vaqtni tanlang (bir marta tanlanadi):
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+        <button class="chess-pill-btn" id="chess-modal-time-1m" style="padding:12px; font-size:14px;" onclick="ChessGame.applyNewGameWithTime('1m')">⚡ 1 daqiqa (Bullet)</button>
+        <button class="chess-pill-btn" id="chess-modal-time-3m" style="padding:12px; font-size:14px;" onclick="ChessGame.applyNewGameWithTime('3m')">⚡ 3 daqiqa (Blitz)</button>
+        <button class="chess-pill-btn active" id="chess-modal-time-5m" style="padding:12px; font-size:14px;" onclick="ChessGame.applyNewGameWithTime('5m')">⏱️ 5 daqiqa (Rapid)</button>
+        <button class="chess-pill-btn" id="chess-modal-time-10m" style="padding:12px; font-size:14px;" onclick="ChessGame.applyNewGameWithTime('10m')">⌛ 10 daqiqa (Klassik)</button>
+        <button class="chess-pill-btn" id="chess-modal-time-unlimited" style="padding:12px; font-size:14px;" onclick="ChessGame.applyNewGameWithTime('unlimited')">♾️ Cheksiz (Vaqtsiz)</button>
+      </div>
+
+      <button class="btn-action btn-secondary" id="chess-time-cancel-btn" onclick="ChessGame.closeTimeModal()">Bekor Qilish</button>
+    </div>
+  </div>
+
+  <!-- CHESS PAWN PROMOTION MODAL -->
+  <div class="modal-backdrop" id="chess-promotion-modal" style="z-index:700;">
+    <div class="modal-sheet" style="max-width:320px; text-align:center;">
+      <div class="modal-head" id="chess-promote-title" style="font-size:18px;">Piyodani almashtiring:</div>
+      <div class="chess-promote-dialog">
+        <button class="chess-promote-btn" onclick="ChessGame.selectPromotionPiece('q')" title="Queen">
+          <svg viewBox="0 0 45 45"><g fill="#fff" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M8 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0m16.5-4.5a2 2 0 1 1-4 0 2 2 0 1 1 4 0M41 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0M16 8.5a2 2 0 1 1-4 0 2 2 0 1 1 4 0M33 9a2 2 0 1 1-4 0 2 2 0 1 1 4 0"/><path stroke-linecap="butt" d="M9 26c8.5-1.5 21-1.5 27 0l2-12-7 11V11l-5.5 13.5-3-15-3 15-5.5-14V25L7 14z"/><path stroke-linecap="butt" d="M9 26c0 2 1.5 2 2.5 4 1 1.5 1 1 .5 3.5-1.5 1-1.5 2.5-1.5 2.5-1.5 1.5.5 2.5.5 2.5 6.5 1 16.5 1 23 0 0 0 1.5-1 0-2.5 0 0 .5-1.5-1-2.5-.5-2.5-.5-2 .5-3.5 1-2 2.5-2 2.5-4-8.5-1.5-18.5-1.5-27 0z"/><path fill="none" d="M11.5 30c3.5-1 18.5-1 22 0M12 33.5c6-1 15-1 21 0"/></g></svg>
+        </button>
+        <button class="chess-promote-btn" onclick="ChessGame.selectPromotionPiece('r')" title="Rook">
+          <svg viewBox="0 0 45 45"><g fill="#fff" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path stroke-linecap="butt" d="M9 39h27v-3H9zm3-3v-4h21v4zm-1-22V9h4v2h5V9h5v2h5V9h4v5"/><path d="m34 14-3 3H14l-3-3"/><path stroke-linecap="butt" stroke-linejoin="miter" d="M31 17v12.5H14V17"/><path d="m31 29.5 1.5 2.5h-20l1.5-2.5"/><path fill="none" stroke-linejoin="miter" d="M11 14h23"/></g></svg>
+        </button>
+        <button class="chess-promote-btn" onclick="ChessGame.selectPromotionPiece('b')" title="Bishop">
+          <svg viewBox="0 0 45 45"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><g fill="#fff" stroke-linecap="butt"><path d="M9 36c3.39-.97 10.11.43 13.5-2 3.39 2.43 10.11 1.03 13.5 2 0 0 1.65.54 3 2-.68.97-1.65.99-3 .5-3.39-.97-10.11.46-13.5-1-3.39 1.46-10.11.03-13.5 1-1.35.49-2.32.47-3-.5 1.35-1.94 3-2 3-2z"/><path d="M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z"/><path d="M25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z"/></g><path stroke-linejoin="miter" d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5"/></g></svg>
+        </button>
+        <button class="chess-promote-btn" onclick="ChessGame.selectPromotionPiece('n')" title="Knight">
+          <svg viewBox="0 0 45 45"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path fill="#fff" d="M22 10c10.5 1 16.5 8 16 29H15c0-9 10-6.5 8-21"/><path fill="#fff" d="M24 18c.38 2.91-5.55 7.37-8 9-3 2-2.82 4.34-5 4-1.042-.94 1.41-3.04 0-3-1 0 .19 1.23-1 2-1 0-4.003 1-4-4 0-2 6-12 6-12s1.89-1.9 2-3.5c-.73-.994-.5-2-.5-3 1-1 3 2.5 3 2.5h2s.78-1.992 2.5-3c1 0 1 3 1 3"/><path fill="#000" d="M9.5 25.5a.5.5 0 1 1-1 0 .5.5 0 1 1 1 0m5.433-9.75a.5 1.5 30 1 1-.866-.5.5 1.5 30 1 1 .866.5"/></g></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL-SCREEN GOOGLE ADMOB INTERSTITIAL AD MODAL -->
+  <div class="modal-backdrop" id="admob-interstitial-modal" style="z-index: 9999; background: rgba(15, 23, 42, 0.96);">
+    <div class="modal-sheet" style="max-width:380px; text-align:center; border:2px solid #38bdf8; box-shadow: 0 0 50px rgba(56, 189, 248, 0.4); padding:24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-size:11px; background:#f59e0b; color:#000; font-weight:900; padding:3px 8px; border-radius:4px; letter-spacing:1px;" id="ad-tag-badge">REKLAMA · GOOGLE ADMOB</span>
+        <button id="ad-interstitial-close-btn" onclick="App.closeAdInterstitial()" style="background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:#fff; font-size:13px; font-weight:800; padding:5px 12px; border-radius:6px; cursor:pointer;" disabled>⏳ 3s</button>
+      </div>
+      <div style="font-size:46px; margin:12px 0;">🎮</div>
+      <div style="font-size:20px; font-weight:900; color:#fff; margin-bottom:8px;" id="ad-interstitial-title">Mini Games Arena Pro</div>
+      <div style="font-size:13px; color:#cbd5e1; line-height:1.5; margin-bottom:18px;" id="ad-interstitial-desc">Barcha 17 ta eng qiziqarli o'yinlarni do'stlaringiz bilan birga o'ynang! Onlayn duel, shaxmat, dengiz jangi va boshqalar.</div>
+      <button class="btn-action btn-green" onclick="App.closeAdInterstitial()" style="font-size:15px; padding:14px; font-weight:900; margin-bottom:8px;" id="ad-interstitial-action">Davom Etish (O'yinga Qaytish)</button>
+    </div>
+  </div>
+
+  <!-- GENERIC RESULT MODAL -->
+  <div class="modal-backdrop" id="generic-modal">
+    <div class="modal-sheet">
+      <div class="modal-icon" id="m-icon">🏆</div>
+      <div class="modal-head" id="m-title">G'alaba!</div>
+      <div class="modal-body" id="m-desc">Tavsif</div>
+      <button class="btn-action btn-primary" id="m-btn-primary">OK</button>
+    </div>
+  </div>
+
+  <!-- CONFIRM ACTION MODAL -->
+  <div class="modal-backdrop" id="confirm-modal">
+    <div class="modal-sheet">
+      <div class="modal-icon" id="c-icon">❓</div>
+      <div class="modal-head" id="c-title">Tasdiqlash</div>
+      <div class="modal-body" id="c-desc">Harakatni tasdiqlaysizmi?</div>
+      <div style="display:flex; gap:10px; margin-top:16px;">
+        <button class="btn-action btn-secondary" style="flex:1; padding:10px 14px;" id="c-btn-cancel" onclick="App.closeConfirmModal()">Bekor qilish</button>
+        <button class="btn-action btn-primary" style="flex:1; padding:10px 14px;" id="c-btn-confirm">Ha</button>
+      </div>
+    </div>
+  </div>
+
+      <!-- LANGUAGE SELECTOR MODAL -->
+      <div class="modal-backdrop" id="lang-modal">
+        <div class="modal-sheet">
+          <div class="modal-icon">🌐</div>
+          <div class="modal-head" id="lang-modal-title" style="font-size:18px;">Tilni Tanlang / Выберите язык / Select Language / Dil Seçin</div>
+          <div class="modal-body" style="margin-bottom:14px;" id="lang-modal-desc">Ilova interfeysi tilini tanlang:</div>
+    
+          <div style="display:flex; flex-direction:column; gap:10px;">
+              <div class="lang-item" style="padding:16px; font-size:16px; border-radius:12px;" onclick="App.setLanguage('uz')">
+                <span>🇺🇿 O'zbek tili</span>
+                <span id="check-uz">✔</span>
+              </div>
+              <div class="lang-item" style="padding:16px; font-size:16px; border-radius:12px;" onclick="App.setLanguage('ru')">
+                <span>🇷🇺 Русский язык</span>
+                <span id="check-ru"></span>
+              </div>
+              <div class="lang-item" style="padding:16px; font-size:16px; border-radius:12px;" onclick="App.setLanguage('en')">
+                <span>🇬🇧 English</span>
+                <span id="check-en"></span>
+              </div>
+              <div class="lang-item" style="padding:16px; font-size:16px; border-radius:12px;" onclick="App.setLanguage('tr')">
+                <span>🇹🇷 Türkçe</span>
+                <span id="check-tr"></span>
+              </div>
+          </div>
+          <button class="btn-action btn-secondary" style="margin-top:16px;" id="lang-modal-close" onclick="App.closeLangModal()">Yopish</button>
+        </div>
+      </div>
+
+  <!-- GOOGLE ADMOB BOTTOM BANNER (NON-INTRUSIVE, FIXED BOTTOM) -->
+  <div id="admob-banner-container" class="admob-banner-wrap">
+    <div class="admob-badge-row">
+      <span class="admob-pill">Ad · Google AdMob</span>
+      <span class="admob-unit-id">ca-app-pub-3940256099942544/6300978111</span>
+      <span class="admob-info-icon" onclick="App.showAdInfo(event)" title="Ad Info">ⓘ</span>
+    </div>
+    <div class="admob-content-row" onclick="App.onAdBannerClicked()">
+      <div class="admob-icon-box">🎮</div>
+      <div class="admob-text-col">
+        <span class="admob-headline" id="admob-banner-headline">Mini Games Arena Pro</span>
+        <span class="admob-subtext" id="admob-banner-subtext">⭐ 4.9 · 100K+ Yuklab olishlar · Bepul</span>
+      </div>
+      <button class="admob-cta-btn" id="admob-banner-cta">O'rnatish</button>
+    </div>
+  </div>
+
+  <!-- GOOGLE ADMOB FULLSCREEN INTERSTITIAL AD -->
+  <div class="modal-backdrop" id="admob-interstitial-modal" style="z-index: 9999; background: rgba(5, 8, 16, 0.96);">
+    <div class="admob-interstitial-sheet">
+      <div class="admob-interstitial-topbar">
+        <div class="admob-interstitial-badge-group">
+          <span class="admob-pill">Google AdMob</span>
+          <span class="admob-unit-id">ca-app-pub-3940256099942544/1033173712</span>
+        </div>
+        <div class="admob-countdown-group">
+          <span id="admob-countdown-txt">Reklama: 5s</span>
+          <button id="admob-close-btn" class="admob-interstitial-close-btn" onclick="App.closeInterstitialAd()" disabled>✕</button>
+        </div>
+      </div>
+
+      <div class="admob-creative-body">
+        <div class="admob-creative-hero">
+          <div class="admob-hero-media">
+            <div class="admob-hero-art">⚔️ 🎯 👑</div>
+            <div class="admob-hero-overlay">
+              <span class="admob-sponsor-tag">Ad · Sponsored Game</span>
+            </div>
+          </div>
+          <div class="admob-hero-details">
+            <div class="admob-hero-title">Arena Legends: Online Strategy</div>
+            <div class="admob-hero-rating">⭐⭐⭐⭐⭐ 4.9 (350K baholar)</div>
+            <div class="admob-hero-desc">Do'stlaringiz bilan real vaqtda intellektual janglar o'ynang! Bepul yuklab oling.</div>
+          </div>
+        </div>
+        <button class="admob-interstitial-install-btn" onclick="App.onAdInstallClicked()">
+          <span>Yuklab Olish / Install</span>
+          <span style="font-size:12px; opacity:0.85;">Google Play • Bepul</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast">Xabarnoma</div>
+
+  <!-- SCRIPTS -->
+  <script src="js/paho-mqtt.min.js"></script>
+  <script src="js/peerjs.min.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/multiplayer.js"></script>
+  <script src="js/games/battleship.js"></script>
+  <script src="js/games/battleship5.js"></script>
+  <script src="js/games/maze.js"></script>
+  <script src="js/games/ttt.js"></script>
+  <script src="js/games/ttt5.js"></script>
+  <script src="js/games/math.js"></script>
+  <script src="js/games/guess.js"></script>
+  <script src="js/games/rps.js"></script>
+  <script src="js/games/matches.js"></script>
+  <script src="js/games/pole.js"></script>
+  <script src="js/games/memory.js"></script>
+  <script src="js/games/mines.js"></script>
+  <script src="js/games/stroop.js"></script>
+  <script src="js/games/mathmaze.js"></script>
+  <script src="js/games/fruitmath.js"></script>
+  <script src="js/chess.min.js"></script>
+  <script src="js/games/chess_pieces.js"></script>
+  <script src="js/games/chess_game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

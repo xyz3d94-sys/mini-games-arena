@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="c-sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="55%" stop-color="#bae6fd"/>
+      <stop offset="70%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#fdba74"/>
+    </linearGradient>
+    <linearGradient id="c-sea-deep" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="40%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#0c4a6e"/>
+    </linearGradient>
+    <linearGradient id="c-ship-hull" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="40%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="c-ship-red" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </linearGradient>
+    <filter id="c-shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#0c4a6e" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Sky Background -->
+  <rect width="500" height="340" fill="url(#c-sky)"/>
+
+  <!-- Sun -->
+  <circle cx="250" cy="270" r="75" fill="#fef08a" opacity="0.85"/>
+  <circle cx="250" cy="270" r="50" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Cartoon Clouds -->
+  <path d="M40,110 Q65,80 100,90 Q130,70 160,95 Q180,90 190,115 Q170,140 130,135 Q70,145 40,110 Z" fill="#ffffff" opacity="0.95"/>
+  <path d="M320,80 Q345,55 375,65 Q400,50 425,70 Q445,70 450,90 Q435,115 400,110 Q350,115 320,80 Z" fill="#ffffff" opacity="0.9"/>
+
+  <!-- Sea Background Layer -->
+  <rect y="320" width="500" height="180" fill="url(#c-sea-deep)"/>
+
+  <!-- Back Water Waves -->
+  <path d="M0,320 Q60,305 125,320 T250,320 T375,320 T500,320 L500,350 L0,350 Z" fill="#0369a1" opacity="0.6"/>
+
+  <!-- ================= CARTOON BATTLESHIP ================= -->
+  <g filter="url(#c-shadow)">
+    <!-- Smoke from Funnel -->
+    <circle cx="225" cy="140" r="18" fill="#e2e8f0" opacity="0.75"/>
+    <circle cx="210" cy="115" r="24" fill="#cbd5e1" opacity="0.6"/>
+    <circle cx="190" cy="85" r="30" fill="#94a3b8" opacity="0.45"/>
+
+    <!-- Mast & Radar -->
+    <rect x="272" y="125" width="8" height="65" rx="3" fill="#1e293b"/>
+    <line x1="258" y1="145" x2="294" y2="145" stroke="#1e293b" stroke-width="5" stroke-linecap="round"/>
+    <!-- Cute spinning radar dish -->
+    <ellipse cx="276" cy="118" rx="18" ry="8" fill="#e2e8f0" stroke="#0f172a" stroke-width="4"/>
+
+    <!-- Ship Funnel (Chimney) -->
+    <path d="M232,160 L248,160 L244,205 L230,205 Z" fill="#e11d48" stroke="#0f172a" stroke-width="4.5"/>
+    <rect x="228" y="160" width="22" height="12" rx="3" fill="#0f172a"/>
+
+    <!-- Bridge / Superstructure Level 2 -->
+    <rect x="250" y="180" width="60" height="32" rx="8" fill="#e2e8f0" stroke="#0f172a" stroke-width="5"/>
+    <!-- Bridge Windows (Cyan Glow) -->
+    <rect x="256" y="187" width="10" height="10" rx="2" fill="#38bdf8" stroke="#0f172a" stroke-width="2"/>
+    <rect x="270" y="187" width="10" height="10" rx="2" fill="#38bdf8" stroke="#0f172a" stroke-width="2"/>
+    <rect x="284" y="187" width="10" height="10" rx="2" fill="#38bdf8" stroke="#0f172a" stroke-width="2"/>
+    <rect x="298" y="187" width="8" height="10" rx="2" fill="#38bdf8" stroke="#0f172a" stroke-width="2"/>
+
+    <!-- Superstructure Level 1 (Main Deckhouse) -->
+    <path d="M190,210 L335,210 L330,250 L195,250 Z" fill="#cbd5e1" stroke="#0f172a" stroke-width="5"/>
+    <!-- Portholes (Round cute windows) -->
+    <circle cx="215" cy="230" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <circle cx="240" cy="230" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <circle cx="265" cy="230" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <circle cx="290" cy="230" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <circle cx="315" cy="230" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+
+    <!-- REAR CANNON (Aft Turret) -->
+    <rect x="110" y="232" width="40" height="8" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="3" transform="rotate(-10 150 236)"/>
+    <path d="M135,232 Q155,215 175,232 L175,250 L135,250 Z" fill="#64748b" stroke="#0f172a" stroke-width="4.5"/>
+
+    <!-- FRONT CANNON (Bow Big Double Cannon) with Fire Flash! -->
+    <!-- Cannon barrels -->
+    <rect x="375" y="218" width="55" height="9" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="3.5" transform="rotate(-12 375 222)"/>
+    <rect x="370" y="228" width="55" height="9" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="3.5" transform="rotate(-12 370 232)"/>
+    <!-- Cannon Turret dome -->
+    <path d="M340,225 Q365,205 390,225 L385,250 L335,250 Z" fill="#64748b" stroke="#0f172a" stroke-width="5"/>
+
+    <!-- CARTOON CANNON FIRE BLAST! -->
+    <circle cx="435" cy="215" r="16" fill="#facc15" stroke="#ea580c" stroke-width="3"/>
+    <circle cx="445" cy="210" r="10" fill="#ffffff"/>
+    <polygon points="435,200 455,190 445,210 465,215 445,225 450,240 435,228" fill="#f97316"/>
+
+    <!-- MAIN HULL (Chunky cartoon boat shape) -->
+    <!-- Top grey deck -->
+    <path d="M85,248 L415,248 C435,268 420,290 405,305 L115,305 C95,295 80,270 85,248 Z" 
+          fill="url(#c-ship-hull)" stroke="#0f172a" stroke-width="5.5"/>
+
+    <!-- Red Bottom Anti-fouling Keel -->
+    <path d="M115,305 L405,305 C385,340 330,352 260,352 C180,352 135,335 115,305 Z" 
+          fill="url(#c-ship-red)" stroke="#0f172a" stroke-width="5"/>
+
+    <!-- White stripe on hull -->
+    <path d="M96,275 L415,275" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- Anchor on bow -->
+    <circle cx="395" cy="285" r="5" fill="#f8fafc" stroke="#0f172a" stroke-width="2.5"/>
+    <path d="M395,290 L395,304 M387,298 Q395,308 403,298" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- FOREGROUND VIBRANT WATER WAVES & SPLASH -->
+  <path d="M-10,340 Q50,315 110,335 Q170,355 240,330 Q310,305 380,335 Q440,360 510,335 L510,500 L-10,500 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="4"/>
+  
+  <!-- Big Cartoon Water Splash around Bow -->
+  <ellipse cx="420" cy="340" rx="35" ry="12" fill="#ffffff" opacity="0.9"/>
+  <path d="M395,340 Q410,315 425,310 Q435,325 445,340 Z" fill="#ffffff" stroke="#38bdf8" stroke-width="2"/>
+  <circle cx="455" cy="320" r="5" fill="#ffffff"/>
+  <circle cx="430" cy="305" r="4" fill="#ffffff"/>
+  <circle cx="465" cy="335" r="3.5" fill="#ffffff"/>
+
+  <!-- Water Foam Lines -->
+  <path d="M30,370 Q100,350 180,368 Q260,385 340,365 Q420,345 480,365" stroke="#7dd3fc" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <path d="M60,420 Q140,405 230,420 Q320,435 410,415" stroke="#bae6fd" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <path d="M120,465 Q220,450 330,465" stroke="#e0f2fe" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+</svg>

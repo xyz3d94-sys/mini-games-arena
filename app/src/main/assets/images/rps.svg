@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="rps-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="45%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="rock-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="60%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="blade-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="handle-red" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#9f1239"/>
+    </linearGradient>
+    <filter id="rps-shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background with rounded corners -->
+  <rect width="500" height="500" rx="44" fill="url(#rps-grad)"/>
+
+  <!-- Dramatic Cartoon Versus Rays -->
+  <circle cx="250" cy="250" r="190" fill="#ffffff" opacity="0.08"/>
+  <circle cx="250" cy="250" r="100" fill="#facc15" opacity="0.15"/>
+
+  <!-- ================= LEFT: CUTE CARTOON ROCK CHARACTER ================= -->
+  <g transform="translate(45, 120)" filter="url(#rps-shadow)">
+    <!-- Rock Body (Chunky, cute boulder) -->
+    <path d="M70,30 
+             C120,15 165,40 175,85 
+             C185,135 170,195 140,225 
+             C105,255 45,245 20,205 
+             C-5,165 5,95 30,55 
+             C45,35 55,30 70,30 Z" 
+          fill="url(#rock-grad)" stroke="#1e293b" stroke-width="6"/>
+
+    <!-- Rock texture patches -->
+    <path d="M45,70 Q60,60 80,75" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M30,165 Q45,150 65,160" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M125,185 Q145,175 155,190" stroke="#334155" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+    <!-- Cute Big Cartoon Eyes -->
+    <!-- Left Eye -->
+    <ellipse cx="65" cy="115" rx="18" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+    <ellipse cx="70" cy="115" rx="10" ry="14" fill="#0f172a"/>
+    <circle cx="73" cy="108" r="4.5" fill="#ffffff"/>
+    <circle cx="67" cy="122" r="2" fill="#ffffff"/>
+
+    <!-- Right Eye -->
+    <ellipse cx="115" cy="110" rx="18" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+    <ellipse cx="120" cy="110" rx="10" ry="14" fill="#0f172a"/>
+    <circle cx="123" cy="103" r="4.5" fill="#ffffff"/>
+    <circle cx="117" cy="117" r="2" fill="#ffffff"/>
+
+    <!-- Determined Cute Eyebrows -->
+    <path d="M50,88 Q65,96 82,92" stroke="#0f172a" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M102,90 Q120,84 135,80" stroke="#0f172a" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+    <!-- Rosy Cartoon Cheeks -->
+    <ellipse cx="48" cy="140" rx="10" ry="6" fill="#f43f5e" opacity="0.6"/>
+    <ellipse cx="132" cy="135" rx="10" ry="6" fill="#f43f5e" opacity="0.6"/>
+
+    <!-- Grinning Mouth with cute tooth -->
+    <path d="M72,148 Q92,175 116,144 Z" fill="#991b1b" stroke="#0f172a" stroke-width="4"/>
+    <path d="M80,148 Q90,156 100,148" fill="#ffffff"/>
+  </g>
+
+  <!-- ================= RIGHT: CUTE CARTOON SCISSORS CHARACTER ================= -->
+  <g transform="translate(245, 100)" filter="url(#rps-shadow)">
+    <!-- Scissor Blades (Crossed, Shiny Steel) -->
+    <!-- Blade 1 (Pointing Left-Down) -->
+    <path d="M105,150 L20,95 Q10,90 20,80 L115,125 Z" fill="url(#blade-grad)" stroke="#0f172a" stroke-width="5"/>
+    <path d="M25,85 L105,128" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Blade 2 (Pointing Left-Up) -->
+    <path d="M110,120 L25,185 Q12,192 18,205 L115,160 Z" fill="url(#blade-grad)" stroke="#0f172a" stroke-width="5"/>
+    <path d="M26,192 L105,154" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Golden Pivot Screw with Face -->
+    <circle cx="112" cy="140" r="16" fill="#facc15" stroke="#0f172a" stroke-width="4"/>
+    <circle cx="112" cy="140" r="8" fill="#ca8a04"/>
+
+    <!-- Scissor Red Chunky Handles (Top & Bottom Rings) -->
+    <!-- Top Handle Ring -->
+    <path d="M115,120 C140,90 195,80 215,115 C230,140 205,180 170,170 C145,162 135,145 115,135 Z" 
+          fill="url(#handle-red)" stroke="#0f172a" stroke-width="5"/>
+    <ellipse cx="180" cy="125" rx="18" ry="18" fill="#4f46e5" stroke="#0f172a" stroke-width="4"/>
+
+    <!-- Bottom Handle Ring -->
+    <path d="M115,155 C140,185 195,195 215,160 C230,135 205,95 170,105 C145,113 135,130 115,140 Z" 
+          fill="url(#handle-red)" stroke="#0f172a" stroke-width="5"/>
+    <ellipse cx="180" cy="165" rx="18" ry="18" fill="#4f46e5" stroke="#0f172a" stroke-width="4"/>
+
+    <!-- Scissors Cute Eyes on the Joint -->
+    <!-- Eye 1 -->
+    <circle cx="140" cy="115" r="13" fill="#ffffff" stroke="#0f172a" stroke-width="3.5"/>
+    <circle cx="137" cy="115" r="7" fill="#0f172a"/>
+    <circle cx="135" cy="112" r="2.5" fill="#ffffff"/>
+
+    <!-- Eye 2 -->
+    <circle cx="140" cy="145" r="13" fill="#ffffff" stroke="#0f172a" stroke-width="3.5"/>
+    <circle cx="137" cy="145" r="7" fill="#0f172a"/>
+    <circle cx="135" cy="142" r="2.5" fill="#ffffff"/>
+
+    <!-- Smiling Mouth -->
+    <path d="M152,126 Q162,130 152,136" stroke="#0f172a" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- ================= CENTER: CARTOON "VS" CLASH & STARBURST ================= -->
+  <g transform="translate(250, 260)" filter="url(#rps-shadow)">
+    <!-- Comic Action Starburst -->
+    <polygon points="0,-48 15,-20 48,-30 25,-5 48,15 18,20 25,50 0,25 -25,50 -18,20 -48,15 -25,-5 -48,-30 -15,-20" 
+             fill="#facc15" stroke="#ea580c" stroke-width="4"/>
+
+    <!-- Comic "VS" Text -->
+    <text x="0" y="12" font-family="'Impact', 'Arial Black', system-ui, sans-serif" font-size="36" font-style="italic" font-weight="900" fill="#dc2626" text-anchor="middle" stroke="#ffffff" stroke-width="3">VS</text>
+  </g>
+
+  <!-- Comic Action Sparks -->
+  <polygon points="210,180 216,190 228,190 218,198 222,210 210,202 198,210 202,198 192,190 204,190" fill="#fde047"/>
+  <polygon points="295,330 300,340 310,340 302,347 305,357 295,350 285,357 288,347 280,340 290,340" fill="#fde047"/>
+  <circle cx="230" cy="310" r="4" fill="#ffffff"/>
+  <circle cx="270" cy="170" r="5" fill="#ffffff"/>
+</svg>

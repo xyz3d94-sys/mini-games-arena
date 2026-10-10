@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="w-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="cube-yellow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+    <linearGradient id="cube-rose" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbcfe8"/>
+      <stop offset="50%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <linearGradient id="cube-emerald" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="cube-cyan" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <filter id="w-shad" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="#1e1b4b" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background with rounded corners -->
+  <rect width="500" height="500" rx="44" fill="url(#w-bg)"/>
+
+  <!-- Radial Light Burst in Center -->
+  <circle cx="250" cy="240" r="190" fill="#ffffff" opacity="0.12"/>
+  <circle cx="250" cy="240" r="120" fill="#fef08a" opacity="0.18"/>
+
+  <!-- Magical Floating Stars -->
+  <polygon points="110,65 116,80 132,80 119,90 124,105 110,95 96,105 101,90 88,80 104,80" fill="#fde047"/>
+  <polygon points="390,75 395,88 410,88 398,96 402,110 390,101 378,110 382,96 370,88 385,88" fill="#fde047"/>
+  <polygon points="250,45 255,56 268,56 258,64 262,76 250,68 238,76 242,64 232,56 245,56" fill="#ffffff"/>
+
+  <!-- 3D CARTOON LETTER CUBES / BLOCKS -->
+  <!-- Block 1: 'A' (Emerald Green 3D cube) -->
+  <g transform="translate(60, 160)" filter="url(#w-shad)">
+    <!-- Base block with 3D bottom bevel -->
+    <rect width="115" height="115" rx="22" fill="#047857"/>
+    <rect width="115" height="103" rx="22" fill="url(#cube-emerald)" stroke="#34d399" stroke-width="4"/>
+    <!-- Top gloss highlight -->
+    <path d="M18,12 Q58,6 97,12 Q97,32 18,32 Z" fill="#ffffff" opacity="0.35"/>
+    <!-- Cute Letter 'A' -->
+    <text x="58" y="75" font-family="'Arial Black', system-ui, sans-serif" font-size="64" font-weight="900" fill="#ffffff" text-anchor="middle" stroke="#065f46" stroke-width="4">A</text>
+  </g>
+
+  <!-- Block 2: 'B' (Center Hero Golden Yellow 3D cube with Crown/Star) -->
+  <g transform="translate(185, 120)" filter="url(#w-shad)">
+    <!-- Base block with 3D bottom bevel -->
+    <rect width="130" height="130" rx="24" fill="#a16207"/>
+    <rect width="130" height="116" rx="24" fill="url(#cube-yellow)" stroke="#fef08a" stroke-width="5"/>
+    <!-- Top gloss highlight -->
+    <path d="M20,14 Q65,6 110,14 Q110,36 20,36 Z" fill="#ffffff" opacity="0.45"/>
+    <!-- Golden Star above block -->
+    <polygon points="65,-12 71,2 86,2 74,11 78,25 65,16 52,25 56,11 44,2 59,2" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+    <!-- Cute Letter 'B' -->
+    <text x="65" y="85" font-family="'Arial Black', system-ui, sans-serif" font-size="74" font-weight="900" fill="#78350f" text-anchor="middle" stroke="#b45309" stroke-width="3">B</text>
+  </g>
+
+  <!-- Block 3: 'C' (Rose Pink 3D cube) -->
+  <g transform="translate(325, 160)" filter="url(#w-shad)">
+    <!-- Base block with 3D bottom bevel -->
+    <rect width="115" height="115" rx="22" fill="#881337"/>
+    <rect width="115" height="103" rx="22" fill="url(#cube-rose)" stroke="#fb7185" stroke-width="4"/>
+    <!-- Top gloss highlight -->
+    <path d="M18,12 Q58,6 97,12 Q97,32 18,32 Z" fill="#ffffff" opacity="0.35"/>
+    <!-- Cute Letter 'C' -->
+    <text x="58" y="75" font-family="'Arial Black', system-ui, sans-serif" font-size="64" font-weight="900" fill="#ffffff" text-anchor="middle" stroke="#9f1239" stroke-width="4">C</text>
+  </g>
+
+  <!-- BOTTOM ROW: WORD PUZZLE SLOTS WITH GOLDEN COIN & PENCIL -->
+  <g transform="translate(70, 315)" filter="url(#w-shad)">
+    <!-- Wooden / Glass puzzle bar -->
+    <rect width="360" height="70" rx="20" fill="#0f172a" stroke="#475569" stroke-width="3" opacity="0.85"/>
+    <!-- Puzzle slots (Yellow glow) -->
+    <rect x="25" y="14" width="42" height="42" rx="8" fill="#1e293b" stroke="#facc15" stroke-width="2.5"/>
+    <circle cx="46" cy="35" r="5" fill="#facc15"/>
+
+    <rect x="80" y="14" width="42" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+    <circle cx="101" cy="35" r="5" fill="#38bdf8"/>
+
+    <rect x="135" y="14" width="42" height="42" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="2.5"/>
+    <circle cx="156" cy="35" r="5" fill="#4ade80"/>
+
+    <rect x="190" y="14" width="42" height="42" rx="8" fill="#1e293b" stroke="#f472b6" stroke-width="2.5"/>
+    <circle cx="211" cy="35" r="5" fill="#f472b6"/>
+
+    <!-- Cute cartoon magnifying glass / Light bulb icon on the right -->
+    <g transform="translate(265, 8)">
+      <circle cx="45" cy="26" r="22" fill="#fde047" stroke="#ca8a04" stroke-width="3"/>
+      <text x="45" y="34" font-size="24" text-anchor="middle">💡</text>
+    </g>
+  </g>
+
+  <!-- Sparkles -->
+  <circle cx="150" cy="130" r="4" fill="#ffffff"/>
+  <circle cx="350" cy="120" r="4" fill="#ffffff"/>
+  <circle cx="210" cy="300" r="5" fill="#fef08a"/>
+  <circle cx="300" cy="290" r="4" fill="#fef08a"/>
+</svg>

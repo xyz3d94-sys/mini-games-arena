@@ -1,0 +1,6 @@
+{
+  "name": "Mini Games Arena",
+  "description": "Mini-o'yinlar to'plami: Dengiz Jangi, Mina Qidiruvchi, Rangli So'zlar, Matematik Labirint (100), Mevali Tenglamalar, Gugurt Tenglamalari, Mo'jizalar Maydoni va boshqalar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

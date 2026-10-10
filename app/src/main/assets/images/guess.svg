@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="guess-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="gold-chest" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="30%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="chest-shad" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#451a03" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#guess-bg)"/>
+
+  <!-- Golden Ray Burst -->
+  <circle cx="250" cy="270" r="190" fill="#fef08a" opacity="0.15"/>
+
+  <!-- Mystery Question Badge -->
+  <g transform="translate(190, 40)" filter="url(#chest-shad)">
+    <circle cx="60" cy="60" r="55" fill="#fef08a" stroke="#d97706" stroke-width="4"/>
+    <text x="60" y="80" font-family="'Nunito', sans-serif" font-size="70" font-weight="900" fill="#b45309" text-anchor="middle">?</text>
+  </g>
+
+  <!-- Number Badges Floating -->
+  <!-- 42 -->
+  <g transform="translate(60, 90)" filter="url(#chest-shad)">
+    <rect width="70" height="55" rx="14" fill="#38bdf8"/>
+    <text x="35" y="38" font-family="sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">42</text>
+  </g>
+  <!-- 77 -->
+  <g transform="translate(370, 90)" filter="url(#chest-shad)">
+    <rect width="70" height="55" rx="14" fill="#ef4444"/>
+    <text x="35" y="38" font-family="sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">77</text>
+  </g>
+
+  <!-- Treasure Chest Glowing with Gold -->
+  <g transform="translate(75, 170)" filter="url(#chest-shad)">
+    <!-- Chest Lid open -->
+    <path d="M25,80 C40,10 310,10 325,80 L290,100 L60,100 Z" fill="url(#gold-chest)" stroke="#78350f" stroke-width="5"/>
+    <rect x="155" y="40" width="40" height="30" rx="4" fill="#78350f"/>
+    <!-- Gold coins overflow -->
+    <circle cx="120" cy="95" r="22" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
+    <circle cx="160" cy="85" r="24" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+    <circle cx="205" cy="90" r="22" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
+    <circle cx="245" cy="100" r="20" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+    <!-- Chest Body -->
+    <path d="M40,95 L310,95 L290,240 L60,240 Z" fill="#78350f" stroke="#451a03" stroke-width="5"/>
+    <rect x="70" y="105" width="210" height="120" fill="#92400e"/>
+    <!-- Iron bands -->
+    <rect x="90" y="95" width="22" height="145" fill="url(#gold-chest)"/>
+    <rect x="238" y="95" width="22" height="145" fill="url(#gold-chest)"/>
+    <!-- Lock plate -->
+    <rect x="150" y="115" width="50" height="60" rx="8" fill="url(#gold-chest)" stroke="#78350f" stroke-width="3"/>
+    <circle cx="175" cy="140" r="8" fill="#451a03"/>
+    <polygon points="172,140 178,140 180,160 170,160" fill="#451a03"/>
+  </g>
+</svg>

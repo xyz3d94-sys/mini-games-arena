@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="chalkboard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="wood-h" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="40%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="wood-v" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="40%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="sulfur" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fca5a5"/>
+      <stop offset="40%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </radialGradient>
+    <radialGradient id="fire" cx="50%" cy="80%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#fef08a"/>
+      <stop offset="70%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="match-glow">
+      <feGaussianBlur stdDeviation="4" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Dark Board Background -->
+  <rect width="500" height="500" rx="40" fill="url(#chalkboard)"/>
+  <!-- Inner subtle grid border -->
+  <rect x="25" y="25" width="450" height="450" rx="30" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6,6"/>
+
+  <!-- Glowing Match Equation: 6 + 4 = 10 -->
+  <!-- DIGIT 6 (Matchsticks) -->
+  <!-- Top horizontal: (80,120) to (140,120) -->
+  <rect x="80" y="115" width="60" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="80" cy="121" r="9" fill="url(#sulfur)"/>
+  <!-- Top-left vertical: (75,125) to (75,215) -->
+  <rect x="69" y="125" width="12" height="90" rx="3" fill="url(#wood-v)"/>
+  <circle cx="75" cy="125" r="9" fill="url(#sulfur)"/>
+  <!-- Middle horizontal: (80,220) to (140,220) -->
+  <rect x="80" y="214" width="60" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="80" cy="220" r="9" fill="url(#sulfur)"/>
+  <!-- Bottom-left vertical: (75,225) to (75,315) -->
+  <rect x="69" y="225" width="12" height="90" rx="3" fill="url(#wood-v)"/>
+  <circle cx="75" cy="225" r="9" fill="url(#sulfur)"/>
+  <!-- Bottom-right vertical: (145,225) to (145,315) -->
+  <rect x="139" y="225" width="12" height="90" rx="3" fill="url(#wood-v)"/>
+  <circle cx="145" cy="315" r="9" fill="url(#sulfur)"/>
+  <!-- Bottom horizontal: (80,320) to (140,320) -->
+  <rect x="80" y="314" width="60" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="140" cy="320" r="9" fill="url(#sulfur)"/>
+
+  <!-- PLUS SIGN (+) -->
+  <!-- Vertical -->
+  <rect x="194" y="185" width="12" height="70" rx="3" fill="url(#wood-v)"/>
+  <circle cx="200" cy="185" r="9" fill="url(#sulfur)"/>
+  <!-- Horizontal -->
+  <rect x="165" y="214" width="70" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="235" cy="220" r="9" fill="url(#sulfur)"/>
+
+  <!-- DIGIT 4 (Matchsticks) -->
+  <!-- Top-left vertical -->
+  <rect x="254" y="125" width="12" height="90" rx="3" fill="url(#wood-v)"/>
+  <circle cx="260" cy="125" r="9" fill="url(#sulfur)"/>
+  <!-- Middle horizontal -->
+  <rect x="265" y="214" width="60" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="265" cy="220" r="9" fill="url(#sulfur)"/>
+  <!-- Full-right vertical -->
+  <rect x="324" y="125" width="12" height="190" rx="3" fill="url(#wood-v)"/>
+  <circle cx="330" cy="125" r="9" fill="url(#sulfur)"/>
+  <circle cx="330" cy="315" r="9" fill="url(#sulfur)"/>
+
+  <!-- EQUALS SIGN (=) -->
+  <rect x="365" y="195" width="55" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="420" cy="201" r="9" fill="url(#sulfur)"/>
+  <rect x="365" y="235" width="55" height="12" rx="3" fill="url(#wood-h)"/>
+  <circle cx="420" cy="241" r="9" fill="url(#sulfur)"/>
+
+  <!-- Interactive Moving Lit Match with Flame & Glow across bottom -->
+  <g transform="translate(110, 375) rotate(-18)" filter="url(#match-glow)">
+    <!-- Wooden stem -->
+    <rect x="0" y="0" width="220" height="16" rx="4" fill="url(#wood-h)"/>
+    <!-- Red sulfur head -->
+    <ellipse cx="225" cy="8" rx="16" ry="12" fill="url(#sulfur)"/>
+    <!-- Gentle Fire Flame -->
+    <path d="M225,8 Q240,-15 255,-35 Q275,-55 260,-20 Q285,-10 260,15 Q245,25 225,12 Z" fill="url(#fire)"/>
+  </g>
+</svg>

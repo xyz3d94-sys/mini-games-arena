@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="math-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="50%" stop-color="#0369a1"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="yellow-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="math-shad" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="40" fill="url(#math-bg)"/>
+
+  <!-- Math graph grid lines -->
+  <line x1="50" y1="250" x2="450" y2="250" stroke="#38bdf8" stroke-width="2" opacity="0.3"/>
+  <line x1="250" y1="50" x2="250" y2="450" stroke="#38bdf8" stroke-width="2" opacity="0.3"/>
+  <circle cx="250" cy="250" r="160" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.2" stroke-dasharray="8,8"/>
+
+  <!-- Formula Banner: 7 × 8 = 56 -->
+  <g filter="url(#math-shad)">
+    <rect x="50" y="80" width="400" height="110" rx="24" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
+    <text x="250" y="155" font-family="'Nunito', sans-serif" font-size="54" font-weight="900" fill="#38bdf8" text-anchor="middle">7 × 8 = 56</text>
+  </g>
+
+  <!-- Big Central Speed Bolt & Equations -->
+  <!-- Lightning bolt (Speed) -->
+  <polygon points="275,200 215,310 250,310 220,420 305,290 265,290" fill="url(#yellow-gold)" filter="url(#math-shad)"/>
+
+  <!-- Math symbols on sides -->
+  <!-- Plus (+) -->
+  <g transform="translate(80, 240)" filter="url(#math-shad)">
+    <circle cx="45" cy="45" r="45" fill="#10b981"/>
+    <text x="45" y="60" font-family="sans-serif" font-size="52" font-weight="900" fill="#ffffff" text-anchor="middle">+</text>
+  </g>
+
+  <!-- Division (÷) -->
+  <g transform="translate(330, 240)" filter="url(#math-shad)">
+    <circle cx="45" cy="45" r="45" fill="#ec4899"/>
+    <text x="45" y="60" font-family="sans-serif" font-size="54" font-weight="900" fill="#ffffff" text-anchor="middle">÷</text>
+  </g>
+
+  <!-- Pi (π) & Square Root (√) -->
+  <g transform="translate(80, 360)" filter="url(#math-shad)">
+    <rect width="90" height="70" rx="18" fill="#6366f1"/>
+    <text x="45" y="50" font-family="sans-serif" font-size="44" font-weight="900" fill="#ffffff" text-anchor="middle">√x</text>
+  </g>
+
+  <!-- 10 Levels Badge -->
+  <g transform="translate(330, 360)" filter="url(#math-shad)">
+    <rect width="90" height="70" rx="18" fill="#f59e0b"/>
+    <text x="45" y="48" font-family="sans-serif" font-size="32" font-weight="900" fill="#ffffff" text-anchor="middle">1-10</text>
+  </g>
+</svg>
